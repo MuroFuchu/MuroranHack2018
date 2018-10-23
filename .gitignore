@@ -6,5 +6,5 @@
 *.swp
 .vscode/
 typings/
-node_modules
-www
+node_modules*
+www*

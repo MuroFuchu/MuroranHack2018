@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as ons from 'onsenui';
+import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
 
 @Component({
   selector: 'map',
@@ -9,7 +10,7 @@ import * as ons from 'onsenui';
   ]
 })
 export class Map {
-  constructor() {}
+  constructor(private _navigator: OnsNavigator) {}
 
   alert() {
     ons.notification.alert('This is an Onsen UI alert notification.');

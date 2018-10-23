@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as ons from 'onsenui';
+import { Menu } from '../modules/children/menu/menu';
 
 @Component({
   selector: 'app',
@@ -11,11 +12,5 @@ import * as ons from 'onsenui';
 export class MyApp {
   constructor() {}
 
-  alert() {
-    ons.notification.alert('This is an Onsen UI alert notification.');
-  }
-
-  alert2() {
-    ons.notification.toast('保坂参上！！');
-  }
+  initialPage = Menu;
 }

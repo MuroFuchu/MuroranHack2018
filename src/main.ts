@@ -10,6 +10,13 @@ import {OnsenModule} from 'ngx-onsenui';
 
 import {MyApp} from './app/app';
 
+// Add
+import { Menu } from './modules/children/menu/menu';
+import { RegistrationList } from './modules/children/registrationList/registrationList';
+import { Map } from './modules/children/map/map';
+
+//'./modules/children/menu';
+
 // Enable production mode when in production mode.
 if (process.env.NODE_ENV === 'production') {
   enableProdMode();
@@ -22,7 +29,15 @@ if (process.env.NODE_ENV === 'production') {
     ],
     declarations: [
         MyApp,
+        Menu,
+        RegistrationList,
+        Map
     ],
+    entryComponents: [
+        Menu,
+        RegistrationList,
+        Map
+    ],  
     bootstrap: [
         MyApp,
     ],

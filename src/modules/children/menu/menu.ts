@@ -1,5 +1,10 @@
 import {Component} from '@angular/core';
 import * as ons from 'onsenui';
+import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
+
+import {RegistrationList} from '../registrationList/registrationList';
+
+import {Map} from '../map/map';
 
 @Component({
   selector: 'menu',
@@ -9,13 +14,13 @@ import * as ons from 'onsenui';
   ]
 })
 export class Menu {
-  constructor() {}
+  constructor(private _navigator: OnsNavigator) {}
 
-  alert() {
-    ons.notification.alert('This is an Onsen UI alert notification.');
+  goToMap() {
+    this._navigator.nativeElement.pushPage(Map, {data: {hoge: "fuga"}});
   }
 
-  alert2() {
-    ons.notification.toast('保坂参上！！');
+  goToRegistrationList() {
+    this._navigator.nativeElement.pushPage(RegistrationList, {data: {hoge: "fuga"}});
   }
 }

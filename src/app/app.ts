@@ -14,4 +14,8 @@ export class MyApp {
   alert() {
     ons.notification.alert('This is an Onsen UI alert notification.');
   }
+
+  alert2() {
+    ons.notification.toast('保坂参上！！');
+  }
 }

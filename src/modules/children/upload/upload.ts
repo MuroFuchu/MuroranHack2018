@@ -11,6 +11,8 @@ import * as ons from 'onsenui';
 export class Upload {
   constructor() {}
 
+  target: string = '';
+
   alert() {
     ons.notification.toast('保坂参上！');
   }

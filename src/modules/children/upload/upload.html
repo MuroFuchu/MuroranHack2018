@@ -1,6 +1,6 @@
 <ons-page>
   <ons-toolbar>
-    <div class="center">うｐぉあｄ</div>
+    <div class="center">写真アップロード画面</div>
   </ons-toolbar>
 
   <div class="content">
@@ -8,6 +8,12 @@
       <ons-list-header>Dialog Sample</ons-list-header>
       <ons-list-item (click)="alert()">Alert</ons-list-item>
     </ons-list>
+
+    <div>
+        <ons-input placeholder="写真名を入力せな！" [(value)]="target"></ons-input>
+        <p>Text: {{target}}</p>
+    </div>
+
     <p>ここはあっぷろーどぺーじだよ？</p>
 
   </div>

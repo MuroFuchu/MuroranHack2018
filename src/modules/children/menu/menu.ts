@@ -2,9 +2,9 @@ import {Component} from '@angular/core';
 import * as ons from 'onsenui';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
 
-import {RegistrationList} from '../registrationList/registrationList';
-
 import {Map} from '../map/map';
+import {RegistrationList} from '../registrationList/registrationList';
+import {Upload} from '../upload/upload';
 
 @Component({
   selector: 'menu',
@@ -23,4 +23,9 @@ export class Menu {
   goToRegistrationList() {
     this._navigator.nativeElement.pushPage(RegistrationList, {data: {hoge: "fuga"}});
   }
+
+  goToUpload() {
+    this._navigator.nativeElement.pushPage(Upload, {data: {hoge: "fuga"}});
+  }
+
 }

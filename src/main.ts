@@ -12,8 +12,9 @@ import {MyApp} from './app/app';
 
 // Add
 import { Menu } from './modules/children/menu/menu';
-import { RegistrationList } from './modules/children/registrationList/registrationList';
 import { Map } from './modules/children/map/map';
+import { RegistrationList } from './modules/children/registrationList/registrationList';
+import { Upload } from './modules/children/upload/upload';
 
 //'./modules/children/menu';
 
@@ -30,13 +31,15 @@ if (process.env.NODE_ENV === 'production') {
     declarations: [
         MyApp,
         Menu,
+        Map,
         RegistrationList,
-        Map
+        Upload
     ],
     entryComponents: [
         Menu,
+        Map,
         RegistrationList,
-        Map
+        Upload
     ],  
     bootstrap: [
         MyApp,

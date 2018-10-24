@@ -11,11 +11,10 @@ import * as ons from 'onsenui';
 export class Upload {
   constructor() {}
 
+  target: string = '';
+
   alert() {
-    ons.notification.alert('This is an Onsen UI alert notification.');
+    ons.notification.toast('保坂参上！');
   }
 
-  alert2() {
-    ons.notification.toast('保坂参上！！');
-  }
 }

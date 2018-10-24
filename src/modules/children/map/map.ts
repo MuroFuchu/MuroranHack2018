@@ -5,8 +5,14 @@ import {OnsNavigator,OnsenModule} from 'ngx-onsenui'
 @Component({
   selector: 'map',
   template: require('./map.html'),
-  styles: [
-  	'./map.css'
+  styles: [`
+  .map_area {
+    height:90%;
+  }
+  .btn_area {
+    height:10%;
+  }
+  `
   ]
 })
 export class Map {

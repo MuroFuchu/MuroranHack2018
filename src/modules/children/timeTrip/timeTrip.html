@@ -17,13 +17,13 @@
         </ons-select>
       </ons-list-item>
       <ons-list-item style="width: 100%;">
-        <ons-carousel #carousel swipeable auto-scroll
+        <ons-carousel #carousel 
+        　swipeable auto-scroll
           id="carousel"
           (postchange)="toPostChane($event)">
-          <ons-carousel-item *ngFor="let item of infoList" style="background: lightgray" (click)="modal.show()">
-            <div class="carousel_item">
-              {{item.Year}}
-            </div>
+          <ons-carousel-item *ngFor="let item of infoList" style="background: floralwhite;" (click)="modal.show()">
+            <img class="carousel_photo" [src]="item.bin">
+            <span class="carousel_text">{{item.Year}}</span>
           </ons-carousel-item>
         </ons-carousel>
       </ons-list-item>
@@ -41,6 +41,7 @@
 <!-- 画像拡大モーダル -->
 <ons-modal #modal (click)="modal.hide()">
   <div class="photoModal">
+    <img class="carousel_photo" [src]="info.bin">
     <div class="modal_text">
         {{info.Year}}
     </div>

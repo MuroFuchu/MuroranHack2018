@@ -9,6 +9,7 @@ import {Upload} from '../upload/upload';
   selector: 'menu',
   template: require('./menu.html'),
   styles: [`
+  
   .content{
     background-color:#f9d3d3;
   }
@@ -27,6 +28,7 @@ import {Upload} from '../upload/upload';
     margin:10px;
     padding-top:10px;
   }
+  
 
   .material-icons{
     font-size:40px;

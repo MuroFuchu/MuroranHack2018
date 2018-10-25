@@ -1,14 +1,18 @@
 import { OnInit, Component, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import * as ons from 'onsenui';
+
 import { Menu } from '../menu/menu';
+
+import * as ons from 'onsenui';
 import {
   OnsSelect,
   OnsenModule,
   CUSTOM_ELEMENTS_SCHEMA,
   OnsNavigator,
 } from 'ngx-onsenui';
- 
+
+import { IndexedDbService } from '../../../services/IndexedDbService';
+
 @Component({
   selector: 'timeTrip',
   template: require('./timeTrip.html'),
@@ -45,19 +49,28 @@ import {
   width: calc(100% - 35px - 10px);
 }
 
-.carousel_item {
+.carousel_text {
   position: absolute; 
   bottom: 0; 
   right: 30px; 
   margin-bottom: 10px;
   font-size: 30px;
-  color: dimgray;;
+  color: darkgray;
+}
+
+.carousel_photo {
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
 }
 
 .photoModal {
   height: 300px;
   width: 300px;
-  background: lightgray;
   margin: auto;
 }
 
@@ -76,7 +89,6 @@ import {
 }
   `]})
 export class TimeTrip {
-  constructor(private _navigator: OnsNavigator) {}
   @ViewChild('carousel') carousel;
  
   adressListDB: Adress[] = [
@@ -85,7 +97,7 @@ export class TimeTrip {
     { LocationID: "a003", Address: "岩手県宮古市五月町１－１", Latitude: 50, longitude: 10 },
   ];
   infoListDB: TimeTripPhotoInfo[] = [
-    { PhotoId: "p001", Year: 1984, LocationID: "a001", Title: "幌別駅前通り 1984.", Comment: "北口駅前の様子。情調ある風景が感慨を感じさせる。", bin: "sj01", LastUpdateDate: "20181025" },
+    { PhotoId: "p001", Year: 1984, LocationID: "a001", Title: "幌別駅前通り 1984.", Comment: "北口駅前の様子。情調ある風景が感慨を感じさせる。", bin: "aaa", LastUpdateDate: "20181025" },
     { PhotoId: "p002", Year: 2018, LocationID: "a001", Title: "幌別駅前通り 2018.", Comment: "北口駅前の様子。無機質な町並が現実を実感させる。", bin: "d82m", LastUpdateDate: "20181025" },
     { PhotoId: "p003", Year: 2050, LocationID: "a001", Title: "幌別駅前通り 2050.", Comment: "北口駅前の様子。人間もペットも電子になりました。", bin: "k8aa", LastUpdateDate: "20181025" },
     { PhotoId: "p004", Year: 2014, LocationID: "a002", Title: "京王府中一丁目ビル", Comment: "日鋼情報システム(株)が府中市Jタワーより移転した年。", bin: "sj01", LastUpdateDate: "20181025" },
@@ -102,8 +114,11 @@ export class TimeTrip {
   info: TimeTripPhotoInfo = null;
 
   isVisible: boolean = true;
+  bin: string = "";
+
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService) {}
  
-  ngOnInit() {
+  async ngOnInit() {
     // 遷移元画面から位置情報マスタを取得
   　this.adress = this.adressListDB[0];
     this.locationId = this.adress.LocationID;
@@ -112,6 +127,10 @@ export class TimeTrip {
 
     var index = this.infoList.findIndex(s => s.PhotoId == this.info.PhotoId);
     this.carousel.nativeElement.setAttribute("initial-index", index.toString());
+
+    var res = await this._indexedDbService.getTrnPhotoInfoByKey("1");
+    console.log(res);
+    this.infoListDB[0].bin = res.Bin;
   }
 
   toPostChane(event) {
@@ -133,11 +152,16 @@ export class TimeTrip {
   　this._navigator.nativeElement.pushPage(Menu, {data: {hoge: "fuga"}});
   }
 
+  convertImageSource(bin: string) {
+    return `data:image/jpg;base64,${bin}`;
+  }
+
   private reloadCarousel() {
     var index = this.infoList.findIndex(s => s.PhotoId == this.info.PhotoId);
     this.carousel.nativeElement.refresh();
     this.carousel.nativeElement.setActiveIndex(index);
   }
+
 }
  
 class Adress {

@@ -9,7 +9,9 @@ import {Upload} from '../upload/upload';
   selector: 'menu',
   template: require('./menu.html'),
   styles: [`
-
+  .content{
+    background-color:#f9d3d3;
+  }
   .menu_title{
     text-align:center;
     font-family:Impact;

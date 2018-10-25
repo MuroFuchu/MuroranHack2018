@@ -1,48 +1,48 @@
 <ons-page>
   <ons-toolbar>
+    <div class="left"><ons-back-button>Back</ons-back-button></div>
     <div class="center">TimeTrip</div>
-    <div class="right">
-      <ons-back-button (click)="goToMenu(navi)">Back</ons-back-button>
-    </div>
   </ons-toolbar>
-   
+
   <div class="content">
-    
-      <div *ngIf="1==1">ああああ</div>
-    <ons-list>
+    <ons-list style="height: 100%;">
       <ons-list-item style="width: 100%;">
-        <ons-button class="btn"><i class="material-icons">home</i></ons-button>
-        <ons-select [(ngModel)]="adress" style="width: 280px;">
-          <!-- <option *ngFor="let adressItem of adressList" [value]="adressItem.LocationID">
+        <ons-button class="btn" (click)="goToMenu(navi)">
+          <i class="material-icons">home</i>
+        </ons-button>
+        <ons-select class="adressSelect" [(ngModel)]="locationId" (change)="changeAdress($event)">
+          <option *ngFor="let adressItem of adressListDB" [value]="adressItem.LocationID">
             {{ adressItem.Address }}
-          </option> -->
+          </option>
         </ons-select>
       </ons-list-item>
-      <ons-list-item style="width: 100%;">
-        <ons-carousel #carousel fullscreen swipeable auto-scroll overscrollable id="carousel" style="height: 200px; width: 100%;">
-          <ons-carousel-item style="background-color: #085078;">
-            <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-              過去
-            </div>
-          </ons-carousel-item>
-          <ons-carousel-item style="background-color: #373B44;">
-            <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-              現在
-            </div>
-          </ons-carousel-item> <ons-carousel-item style="background-color: #D38312;">
-            <div style="text-align: center; font-size: 30px; margin-top: 20px; color: #fff;">
-              未来
+      <ons-list-item style="width: 100%; text-align: center;">
+        <ons-carousel #carousel swipeable auto-scroll overscrollable 
+          id="carousel"
+          (postchange)="toPostChane($event)">
+          <ons-carousel-item *ngFor="let item of infoList" style="background: lightgray" (click)="modal.show()">
+            <div class="carousel_item">
+              {{item.Year}}
             </div>
           </ons-carousel-item>
         </ons-carousel>
       </ons-list-item>
       <ons-list-item>
         <div align="center" style="width: 100%;">
-          <div class="item">幌別駅前通り</div>
-          <div class="item">北口駅前から撮影</div>
-          <div class="item"><ons-button class="btn"><i class="material-icons">edit</i></ons-button></div>
+          <div class="item title">{{info.Title}}</div>
+          <div class="item">{{info.Comment}}</div>
+          <div class="item"><ons-button (click)="toNext()" class="btn"><i class="material-icons">edit</i></ons-button></div>
         </div>
       </ons-list-item>
     </ons-list>
   </div>
 </ons-page>
+
+<!-- 画像拡大モーダル -->
+<ons-modal #modal (click)="modal.hide()">
+  <div class="photoModal">
+    <div class="modal_text">
+        {{info.Year}}
+    </div>
+  </div>
+</ons-modal>

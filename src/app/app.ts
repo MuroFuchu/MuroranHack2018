@@ -11,6 +11,7 @@ import { IndexedDbService } from '../services/IndexedDbService';
   	'./app.css'
   ]
 })
+
 export class MyApp {
   constructor(private indexedDbService: IndexedDbService) {
     indexedDbService.addMultipleLocationInfo([

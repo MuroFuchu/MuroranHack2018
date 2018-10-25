@@ -11,7 +11,18 @@ import * as ons from 'onsenui';
 export class Upload {
   constructor() {}
 
-  target: string = '';
+  pictLocationID: string = '';
+  pictAddress: string = '府中市府中町京王ビル';
+  pictYear: number = 0;
+  pictTitle: string = '';
+  pictComment: string = '';
+
+  selectedModifier: string = 'basic';
+  modifiers = [
+    {value: 'basic', label: 'Basic'},
+    {value: 'material', label: 'Material'},
+    {value: 'underbar', label: 'Underbar'}
+  ];
 
   alert() {
     ons.notification.toast('保坂参上！');

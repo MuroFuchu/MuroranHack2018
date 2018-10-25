@@ -1,20 +1,24 @@
 <ons-page>
   <ons-toolbar>
-    <div class="center">写真アップロード画面</div>
+    <div class="center">写真アップロード画面2</div>
   </ons-toolbar>
 
   <div class="content">
-    <ons-list>
-      <ons-list-header>Dialog Sample</ons-list-header>
-      <ons-list-item (click)="alert()">Alert</ons-list-item>
-    </ons-list>
 
     <div>
-        <ons-input placeholder="写真名を入力せな！" [(value)]="target"></ons-input>
-        <p>Text: {{target}}</p>
+      <p><i class="material-icons">home</i>{{pictAddress}}</p>
     </div>
+    <ons-list>
+      <ons-list-header>写真のタイトルを入力してください！</ons-list-header>
+      <ons-list-item>
+        <ons-input placeholder="" [(value)]="pictTitle"></ons-input>
+      </ons-list-item>
+      <ons-list-header>写真のコメントを入力してください！</ons-list-header>
+      <ons-list-item>
+        <ons-input placeholder="" [(value)]="pictComment"></ons-input>
+      </ons-list-item>
 
-    <p>ここはあっぷろーどぺーじだよ？</p>
+    </ons-list>
 
   </div>
 </ons-page>

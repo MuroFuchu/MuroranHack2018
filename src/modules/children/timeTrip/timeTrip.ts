@@ -11,7 +11,7 @@ import {
  
 @Component({
   selector: 'timeTrip',
-  template: require('./TimeTrip.html'),
+  template: require('./timeTrip.html'),
   styles: [`
 .right {
   float: right;

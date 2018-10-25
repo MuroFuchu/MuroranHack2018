@@ -5,6 +5,7 @@ import {OnsNavigator,OnsenModule} from 'ngx-onsenui'
 import {Map} from '../map/map';
 import {RegistrationList} from '../registrationList/registrationList';
 import {Upload} from '../upload/upload';
+import { TimeTrip } from '../timeTrip/timeTrip';
 @Component({
   selector: 'menu',
   template: require('./menu.html'),
@@ -61,6 +62,10 @@ export class Menu {
 
   goToUpload() {
     this._navigator.nativeElement.pushPage(Upload, {data: {hoge: "fuga"}});
+  }
+
+  goToTimeTrip() {
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {hoge: "fuga"}});
   }
 
 }

@@ -11,6 +11,7 @@ import * as ons from 'onsenui';
 export class Upload {
   constructor() {}
 
+
   pictLocationID: string = '';
   pictAddress: string = '府中市府中町京王ビル';
   pictYear: number = 0;

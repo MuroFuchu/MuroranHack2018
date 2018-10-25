@@ -4,6 +4,8 @@ require('onsenui/css/onsenui.css');
 
 // Application code starts here
 import {enableProdMode, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
 import {HttpModule} from '@angular/http';
 import {OnsenModule} from 'ngx-onsenui';
@@ -15,6 +17,9 @@ import { Menu } from './modules/children/menu/menu';
 import { Map } from './modules/children/map/map';
 import { RegistrationList } from './modules/children/registrationList/registrationList';
 import { Upload } from './modules/children/upload/upload';
+import { TimeTrip } from './modules/children/timeTrip/timeTrip';
+
+import { Routes, RouterModule } from '@angular/router';
 
 //'./modules/children/menu';
 
@@ -23,31 +28,39 @@ if (process.env.NODE_ENV === 'production') {
   enableProdMode();
 }
 
-@NgModule({
-    imports: [
-        OnsenModule, // has BrowserModule internally
-        HttpModule,
-    ],
-    declarations: [
-        MyApp,
-        Menu,
-        Map,
-        RegistrationList,
-        Upload
-    ],
-    entryComponents: [
-        Menu,
-        Map,
-        RegistrationList,
-        Upload
-    ],  
-    bootstrap: [
-        MyApp,
-    ],
-    schemas: [
-        CUSTOM_ELEMENTS_SCHEMA,
-    ],
-})
+// const routes: Routes = [
+//   { path: '', loadChildren: './modules/children.module#ChildrenModule' },
+// ];
+
+ @NgModule({
+     imports: [
+         OnsenModule, // has BrowserModule internally
+         HttpModule,
+         CommonModule,
+         FormsModule,
+     ],
+     declarations: [
+         MyApp,
+         Menu,
+         Map,
+         RegistrationList,
+         Upload,
+         TimeTrip,
+     ],
+     entryComponents: [
+         Menu,
+         Map,
+         RegistrationList,
+         Upload,
+         TimeTrip,
+     ],  
+     bootstrap: [
+         MyApp,
+     ],
+     schemas: [
+         CUSTOM_ELEMENTS_SCHEMA,
+     ],
+ })
 class AppModule {}
 
 if (module['hot']) module['hot'].accept();

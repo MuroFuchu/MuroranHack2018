@@ -10,23 +10,30 @@ import * as ons from 'onsenui';
 })
 export class Upload {
   constructor() {}
-
-
+  
   pictLocationID: string = '';
   pictAddress: string = '府中市府中町京王ビル';
   pictYear: number = 0;
   pictTitle: string = '';
   pictComment: string = '';
 
-  selectedModifier: string = 'basic';
-  modifiers = [
-    {value: 'basic', label: 'Basic'},
-    {value: 'material', label: 'Material'},
-    {value: 'underbar', label: 'Underbar'}
-  ];
+  public changePhoto(event)
+  {
+    this.fileControl(event.target.files)
 
-  alert() {
-    ons.notification.toast('保坂参上！');
+
+
+
+
+  }
+
+
+  private fileControl(files: File[])
+  {
+    for (let file of files)
+    {
+      ons.notification.toast(file.name, { timeout: 1000 } );
+    }
   }
 
 }

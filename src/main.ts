@@ -27,7 +27,8 @@ import { IndexedDbService } from './services/IndexedDbService';
 const config: DexieConfig = {
   databaseName: 'TimeTripPhotoGallery',//your database name here
   schema: {
-    TrnPhotoInfo: '++PhotoID,Year,LocationID,Title,Comment,Bin,LastUpdateDate',
+    CheakInitData: '++ID',
+    TrnPhotoInfo: '++PhotoID,Year,LocationID,Title,Comment,Bin,LastUpdateDateTime',
     MstLocationInfo: '++LocationID,Address,Latitude,Longitude'
   } // any schema of your choice
 };

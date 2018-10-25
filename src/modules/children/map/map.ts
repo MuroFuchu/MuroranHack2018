@@ -6,17 +6,8 @@ import {MapsAPILoader,GoogleMapsAPIWrapper } from '@agm/core';
 @Component({
   selector: 'map',
   template: require('./map.html'),
-  styles: [`
-  .map_area {
-    height:90%;
-  }
-  .btn_area {
-    height:10%;
-  }
-  agm-map {
-    height: 90%;
-  }
-  `
+  styleUrls: [
+    '../src/modules/children/map/map.css'
   ]
 })
 export class Map {

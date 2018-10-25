@@ -13,4 +13,13 @@ export class IndexedDbService {
     public addOnePhotoInfo(photoInfoObject: Object) {
         this.dexieService.addOne('TrnPhotoInfo',photoInfoObject);
     }
+
+    public async getTrnPhotoInfoByKey(key: string) {
+        var data = null;
+        await this.dexieService.getByPrimaryKey('TrnPhotoInfo', key, (item) => {
+            data = item;
+        });
+
+        return data;
+    }
 }

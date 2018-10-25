@@ -32,6 +32,8 @@ const config: DexieConfig = {
   } // any schema of your choice
 };
 
+import { AgmCoreModule } from '@agm/core';
+
 //'./modules/children/menu';
 
 // Enable production mode when in production mode.
@@ -45,7 +47,10 @@ if (process.env.NODE_ENV === 'production') {
 
  @NgModule({
      imports: [
-         OnsenModule, // has BrowserModule internally
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCju8LIyDfOiDbk53jDrNnW1ifs7F-4tEU'
+          }),
+        OnsenModule, // has BrowserModule internally
          HttpModule,
          CommonModule,
          FormsModule,

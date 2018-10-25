@@ -10,7 +10,10 @@ import { TimeTrip } from '../timeTrip/timeTrip';
   selector: 'menu',
   template: require('./menu.html'),
   styles: [`
-
+  
+  .content{
+    background-color:#f9d3d3;
+  }
   .menu_title{
     text-align:center;
     font-family:Impact;
@@ -26,6 +29,7 @@ import { TimeTrip } from '../timeTrip/timeTrip';
     margin:10px;
     padding-top:10px;
   }
+  
 
   .material-icons{
     font-size:40px;
@@ -52,6 +56,10 @@ import { TimeTrip } from '../timeTrip/timeTrip';
 export class Menu {
   constructor(private _navigator: OnsNavigator) {}
 
+  goToTimeTrip() {
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {hoge: "fuga"}});
+  }
+  
   goToMap() {
     this._navigator.nativeElement.pushPage(Map, {data: {hoge: "fuga"}});
   }
@@ -63,9 +71,4 @@ export class Menu {
   goToUpload() {
     this._navigator.nativeElement.pushPage(Upload, {data: {hoge: "fuga"}});
   }
-
-  goToTimeTrip() {
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {hoge: "fuga"}});
-  }
-
 }

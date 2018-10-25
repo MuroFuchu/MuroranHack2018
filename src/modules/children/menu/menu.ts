@@ -5,12 +5,14 @@ import {OnsNavigator,OnsenModule} from 'ngx-onsenui'
 import {Map} from '../map/map';
 import {RegistrationList} from '../registrationList/registrationList';
 import {Upload} from '../upload/upload';
-import { TimeTrip } from '../timeTrip/timeTrip';
 @Component({
   selector: 'menu',
   template: require('./menu.html'),
   styles: [`
-
+  
+  .content{
+    background-color:#f9d3d3;
+  }
   .menu_title{
     text-align:center;
     font-family:Impact;
@@ -26,6 +28,7 @@ import { TimeTrip } from '../timeTrip/timeTrip';
     margin:10px;
     padding-top:10px;
   }
+  
 
   .material-icons{
     font-size:40px;
@@ -62,10 +65,6 @@ export class Menu {
 
   goToUpload() {
     this._navigator.nativeElement.pushPage(Upload, {data: {hoge: "fuga"}});
-  }
-
-  goToTimeTrip() {
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {hoge: "fuga"}});
   }
 
 }

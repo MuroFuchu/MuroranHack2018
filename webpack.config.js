@@ -67,7 +67,7 @@ let webpackConfig = {
         use: [
           {
             loader: 'html-loader',
-            options: { minimize: true }
+            options: { minimize: true, caseSensitive: true }
           }
         ]
       },
@@ -153,7 +153,7 @@ if(devMode) {
     })
   ];
   
-  webpackConfig.plugins = webpackConfig.plugins.concat( devPlugins　);
+  webpackConfig.plugins = webpackConfig.plugins.concat( devPlugins);
 
 } else {
   

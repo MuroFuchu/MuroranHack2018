@@ -71,7 +71,8 @@ import {
 
 #carousel {
   height: 200px; 
-  width: 70%;
+  width: 80%;
+  margin: 0 auto;
 }
   `]})
 export class TimeTrip {

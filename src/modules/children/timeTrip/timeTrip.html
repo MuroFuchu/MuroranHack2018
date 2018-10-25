@@ -16,8 +16,8 @@
           </option>
         </ons-select>
       </ons-list-item>
-      <ons-list-item style="width: 100%; text-align: center;">
-        <ons-carousel #carousel swipeable auto-scroll overscrollable 
+      <ons-list-item style="width: 100%;">
+        <ons-carousel #carousel swipeable auto-scroll
           id="carousel"
           (postchange)="toPostChane($event)">
           <ons-carousel-item *ngFor="let item of infoList" style="background: lightgray" (click)="modal.show()">

@@ -29,6 +29,7 @@ export class Map {
     this.getGeo();//現在地を取得
     this.centerLat = this.presentLat;
     this.centerLng = this.presentLng;
+    this.displayPin()
   }
 
   getGeo() {
@@ -64,33 +65,25 @@ export class Map {
     //var marker = this.apiWrapper.createMarker().then(m => m.);
     this.getGeo();
     this.markers = [
-      {lat:42.339825, lng:140.943745,url:'../images/icon/pin_free.svg',areaName:'室蘭水族館'},
-      {lat:42.319695, lng:140.986877,url:'../images/icon/pin_free.svg',areaName:'日本製鋼所'},
-      {lat:42.318910, lng:140.972560,url:'../images/icon/pin_free.svg',areaName:'日鋼倉庫'},
-      {lat:42.318417, lng:140.970667,url:'../images/icon/pin_free.svg',areaName:'室蘭中央通り'},
+      {LocationID:1, Address:'あ', Latitude:42.339825, Longitude:140.943745,Url:'../contents/icons/pin_normal.svg'/*,areaName:'室蘭水族館'*/},
+      {LocationID:2, Address:'い', Latitude:42.319695, Longitude:140.986877,Url:'../contents/icons/pin_normal.svg'/*,areaName:'日本製鋼所'*/},
+      {LocationID:3, Address:'う', Latitude:42.318910, Longitude:140.972560,Url:'../contents/icons/pin_normal.svg'/*,areaName:'日鋼倉庫'*/},
+      {LocationID:4, Address:'え', Latitude:42.318417, Longitude:140.970667,Url:'../contents/icons/pin_normal.svg'/*,areaName:'室蘭中央通り'*/},
       // {lat:, lng:,url:'../images/icon/pin_free.svg',areaName:'日鋼倉庫',tel:'09012341234',waitingNo:1,reservationNo:10 },
     ];
     
   }
-
-  // // ↓過去の遺物
-  // alert() {
-  //   ons.notification.alert('This is an Onsen UI alert notification.');
-  // }
-
-  // alert2() {
-  //   ons.notification.toast('保坂参上！！');
-  // }
+  changeCenter(m:marker){
+    this.centerLat = m.Latitude;
+    this.centerLng = m.Longitude;
+  }
 }
 // マーカー用インタフェース
 interface marker{
-  lat:number;//x座標
-  lng:number;//y座標
-  url:string;//URL、住所
-  areaName:string;
-  /*↓この辺使わんでしょう */
-  // tel:string;
-  // waitingNo:number;
-  // reservationNo:number;
-  /*↑この辺使わんでしょう */
+  LocationID:number;//ロケーションID
+  Address:string;//住所
+  Latitude:number;//x座標
+  Longitude:number;//y座標
+  Url:string;//アイコンのURL
+  // Title:string//タイトル
 }

@@ -7,37 +7,42 @@ export class IndexedDbService {
     constructor(private dexieService: DexieService) {}
 
     private readonly flg : string = '1';
-
+    private readonly CheakInitData : string = 'CheakInitData';
+    private readonly MstLocationInfo : string = 'MstLocationInfo';
+    private readonly TrnPhotoInfo : string = 'TrnPhotoInfo';
+    
     public async cheakInitData() {
         var data = null;
-        await this.dexieService.getByPrimaryKey('CheakInitData', this.flg, (item) => {
+        await this.dexieService.getByPrimaryKey(this.CheakInitData, this.flg, (item) => {
             data = item;
         });
         
-        console.log(data);
-        if(data){
-            console.log('1');
+        if(data){          
           return false;
         }
-        console.log('2');
+        
         return true;
     }
 
     public cheakedInitData() {
-        this.dexieService.addOne('CheakInitData',{"ID":this.flg});
+        this.dexieService.addOne(this.CheakInitData,{"ID":this.flg});
     }
 
     public addMultipleLocationInfo(locationInfoObjects: Object[]) {
-        this.dexieService.addMultiple('MstLocationInfo',locationInfoObjects);
+        this.dexieService.addMultiple(this.MstLocationInfo,locationInfoObjects);
     }
 
     public addOnePhotoInfo(photoInfoObject: Object) {
-        this.dexieService.addOne('TrnPhotoInfo',photoInfoObject);
+        this.dexieService.addOne(this.TrnPhotoInfo,photoInfoObject);
+    }
+
+    public addMultiplePhotoInfo(photoInfoObjects: Object[]) {
+        this.dexieService.addMultiple(this.TrnPhotoInfo,photoInfoObjects);
     }
 
     public async getTrnPhotoInfoByKey(key: string) {
         var data = null;
-        await this.dexieService.getByPrimaryKey('TrnPhotoInfo', key, (item) => {
+        await this.dexieService.getByPrimaryKey(this.TrnPhotoInfo, key, (item) => {
             data = item;
         });
 

@@ -55,6 +55,7 @@ if (process.env.NODE_ENV === 'production') {
           }),
         OnsenModule, // has BrowserModule internally
          HttpModule,
+         HttpClientModule,
          CommonModule,
          FormsModule,
          DexieModule.forRoot(config)

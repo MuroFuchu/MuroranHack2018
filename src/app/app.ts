@@ -3,6 +3,7 @@ import * as ons from 'onsenui';
 
 import { Menu } from '../modules/children/menu/menu';
 import { IndexedDbService } from '../services/IndexedDbService';
+import { GetJsonService } from '../services/GetJsonService';
 
 //import { TrnPhotoInfo } from '../../initData/TrnPhoto.json';
 //import data from 'json!./data.json';
@@ -15,12 +16,10 @@ import { IndexedDbService } from '../services/IndexedDbService';
 })
 
 export class MyApp {
-  constructor(private indexedDbService: IndexedDbService) {}
+  constructor(private indexedDbService: IndexedDbService, private getJsonService:GetJsonService) {}
 
   async ngOnInit() {
     var flg = await this.CheckInitData();
-
-    console.log(flg);
 
     if(flg) {
       console.log('データ初期化するよ');
@@ -51,9 +50,11 @@ export class MyApp {
         }
       ]);
   
+      //console.log(TrnPhotoInfo);
+      
+      var TrnPhotoInfo = await this.getJsonService.GetJson('TrnPhoto').toPromise();
       console.log(TrnPhotoInfo);
-      //this.indexedDbService.addMultiplePhotoInfo(TrnPhotoInfo);
-
+      this.indexedDbService.addMultiplePhotoInfo(TrnPhotoInfo);
       this.indexedDbService.cheakedInitData();
     }
   }

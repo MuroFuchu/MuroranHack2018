@@ -27,10 +27,13 @@ import { IndexedDbService } from './services/IndexedDbService';
 const config: DexieConfig = {
   databaseName: 'TimeTripPhotoGallery',//your database name here
   schema: {
-    TrnPhotoInfo: '++PhotoID,Year,LocationID,Title,Comment,Bin,LastUpdateDate',
+    CheakInitData: '++ID',
+    TrnPhotoInfo: '++PhotoID,Year,LocationID,Title,Comment,Bin,LastUpdateDateTime',
     MstLocationInfo: '++LocationID,Address,Latitude,Longitude'
   } // any schema of your choice
 };
+
+import { AgmCoreModule } from '@agm/core';
 
 //'./modules/children/menu';
 
@@ -45,7 +48,10 @@ if (process.env.NODE_ENV === 'production') {
 
  @NgModule({
      imports: [
-         OnsenModule, // has BrowserModule internally
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCju8LIyDfOiDbk53jDrNnW1ifs7F-4tEU'
+          }),
+        OnsenModule, // has BrowserModule internally
          HttpModule,
          CommonModule,
          FormsModule,

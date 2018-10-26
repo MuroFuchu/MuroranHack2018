@@ -3,15 +3,51 @@
     <div class="center">Map</div>
     <div class="right"><ons-back-button>Back</ons-back-button></div>
   </ons-toolbar>
-  <div class="map_area">
-    <!-- <ons-list>
-      <ons-list-header>Dialog Sample</ons-list-header>
-      <ons-list-item (click)="alert()">Alert</ons-list-item>
-      <ons-list-item (click)="alert2()">Alert2</ons-list-item>
-    </ons-list>
-    <p>大平参上！！！</p> -->
-  </div>
-  <div class="btn_area">
-
+  <agm-map [latitude]="centerLat" [longitude]="centerLng">
+    <agm-marker *ngFor="let m of markers;" 
+      [latitude]="m.Latitude" 
+      [longitude]="m.Longitude" 
+      [iconUrl]="{
+        url:Url,
+        scaledSize: {
+        width: 40,
+        height: 40
+        }
+      }"
+      [label]="{
+        text: m.Address,
+        fontSize: '15px',
+        fontWeight: '700'
+      }"
+      (markerClick)="changeCenter(m)"
+      >
+      <agm-info-window>
+        <table>
+          <tr>
+            <td>タイトル</td>
+            <td>{{m.Address}}</td>
+          </tr>
+        </table>
+      </agm-info-window>
+    </agm-marker>
+    <agm-marker
+        [latitude]="presentLat" 
+        [longitude]="presentLng" 
+        [iconUrl]="{
+          url:Url,
+          scaledSize: {
+          width: 40,
+          height: 40
+          }
+        }"
+        [label]="{
+          text: '日本製鋼所',
+          fontSize: '15px',
+          fontWeight: '700'
+        }">
+      </agm-marker>
+  </agm-map>
+  <div>
+      <img src="../../../../contents/buttons/goToTrip.png" alt="">
   </div>
 </ons-page>

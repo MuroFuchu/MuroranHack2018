@@ -3,15 +3,26 @@
     <div class="center">Map</div>
     <div class="right"><ons-back-button>Back</ons-back-button></div>
   </ons-toolbar>
-  <div class="map_area">
-    <!-- <ons-list>
-      <ons-list-header>Dialog Sample</ons-list-header>
-      <ons-list-item (click)="alert()">Alert</ons-list-item>
-      <ons-list-item (click)="alert2()">Alert2</ons-list-item>
-    </ons-list>
-    <p>大平参上！！！</p> -->
-  </div>
-  <div class="btn_area">
-
-  </div>
+  <!-- <div class="map_area"> -->
+    <agm-map [latitude]="centerLat" [longitude]="centerLng">
+      <agm-marker
+        [latitude]="presentLat" 
+        [longitude]="presentLng" 
+        [iconUrl]="{
+          url:presentPin,
+          scaledSize: {
+          width: 40,
+          height: 40
+          }
+        }"
+        [label]="{
+          text: '現在地',
+          fontSize: '15px',
+          fontWeight: '700'
+        }">
+      </agm-marker>
+    </agm-map>
+    <div class="btn_area">
+      <img src="../../../../contents/goToTrip.png" width="10" height="10" alt="あ"/>
+    </div>
 </ons-page>

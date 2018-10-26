@@ -5,20 +5,38 @@
 
   <div class="content">
 
-    <div>
+    <!-- 位置 -->
+    <div style="vertical-align: -webkit-baseline-middle">
       <p><i class="material-icons">home</i>{{pictAddress}}</p>
     </div>
+
+    <!-- 写真 -->
+
+    <!-- 写真の情報 -->
     <ons-list>
-      <ons-list-header>写真のタイトルを入力してください！</ons-list-header>
+      <ons-list-header>いつの写真？</ons-list-header>
       <ons-list-item>
         <ons-input placeholder="" [(value)]="pictTitle"></ons-input>
       </ons-list-item>
-      <ons-list-header>写真のコメントを入力してください！</ons-list-header>
+      <ons-list-header>写真のタイトルは？</ons-list-header>
+      <ons-list-item>
+        <ons-input placeholder="" [(value)]="pictTitle"></ons-input>
+      </ons-list-item>
+      <ons-list-header>コメントをどうぞ</ons-list-header>
       <ons-list-item>
         <ons-input placeholder="" [(value)]="pictComment"></ons-input>
       </ons-list-item>
-
     </ons-list>
+
+    <!-- 保存 -->
+
+    <!-- 写真を開く -->
+    <input id="photoUpload" type="file" style="display: none" (change)="changePhoto($event)">
+    <button class="center" onclick="document.getElementById('photoUpload').click();">
+      <i class="material-icons">insert_photo</i>
+    </button>
+
+
 
   </div>
 </ons-page>

@@ -7,8 +7,10 @@ import {enableProdMode, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
+
 import {HttpModule} from '@angular/http';
 import {OnsenModule} from 'ngx-onsenui';
+import {DexieModule,DexieConfig} from 'ngx-dexie';
 
 import {MyApp} from './app/app';
 
@@ -19,7 +21,19 @@ import { RegistrationList } from './modules/children/registrationList/registrati
 import { Upload } from './modules/children/upload/upload';
 import { TimeTrip } from './modules/children/timeTrip/timeTrip';
 
-import { Routes, RouterModule } from '@angular/router';
+// Service
+import { IndexedDbService } from './services/IndexedDbService';
+ 
+const config: DexieConfig = {
+  databaseName: 'TimeTripPhotoGallery',//your database name here
+  schema: {
+    CheakInitData: '++ID',
+    TrnPhotoInfo: '++PhotoID,Year,LocationID,Title,Comment,Bin,LastUpdateDateTime',
+    MstLocationInfo: '++LocationID,Address,Latitude,Longitude'
+  } // any schema of your choice
+};
+
+import { AgmCoreModule } from '@agm/core';
 
 //'./modules/children/menu';
 
@@ -34,10 +48,14 @@ if (process.env.NODE_ENV === 'production') {
 
  @NgModule({
      imports: [
-         OnsenModule, // has BrowserModule internally
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyCju8LIyDfOiDbk53jDrNnW1ifs7F-4tEU'
+          }),
+        OnsenModule, // has BrowserModule internally
          HttpModule,
          CommonModule,
          FormsModule,
+         DexieModule.forRoot(config)
      ],
      declarations: [
          MyApp,
@@ -56,6 +74,9 @@ if (process.env.NODE_ENV === 'production') {
      ],  
      bootstrap: [
          MyApp,
+     ],
+     providers: [
+        IndexedDbService
      ],
      schemas: [
          CUSTOM_ELEMENTS_SCHEMA,

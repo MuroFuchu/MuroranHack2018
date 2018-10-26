@@ -28,7 +28,6 @@ import {Upload} from '../upload/upload';
     margin:10px;
     padding-top:10px;
   }
-  
 
   .material-icons{
     font-size:40px;

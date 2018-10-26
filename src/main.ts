@@ -5,10 +5,11 @@ require('onsenui/css/onsenui.css');
 // Application code starts here
 import {enableProdMode, NgModule, CUSTOM_ELEMENTS_SCHEMA} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import {platformBrowserDynamic} from '@angular/platform-browser-dynamic';
-
 import {HttpModule} from '@angular/http';
+
 import {OnsenModule} from 'ngx-onsenui';
 import {DexieModule,DexieConfig} from 'ngx-dexie';
 
@@ -23,6 +24,7 @@ import { TimeTrip } from './modules/children/timeTrip/timeTrip';
 
 // Service
 import { IndexedDbService } from './services/IndexedDbService';
+import { GetJsonService } from './services/GetJsonService';
  
 const config: DexieConfig = {
   databaseName: 'TimeTripPhotoGallery',//your database name here
@@ -76,7 +78,8 @@ if (process.env.NODE_ENV === 'production') {
          MyApp,
      ],
      providers: [
-        IndexedDbService
+        IndexedDbService,
+        GetJsonService,
      ],
      schemas: [
          CUSTOM_ELEMENTS_SCHEMA,

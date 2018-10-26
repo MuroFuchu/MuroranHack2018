@@ -5,6 +5,9 @@
   .btn_area {
     height:10%;
   }
+  .btn_area li {
+    display:inline-block;
+  }
   agm-map {
     height: 90%;
   }

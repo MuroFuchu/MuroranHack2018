@@ -8,7 +8,7 @@
       [latitude]="m.Latitude" 
       [longitude]="m.Longitude" 
       [iconUrl]="{
-        url:Url,
+        url:presentPin,
         scaledSize: {
         width: 40,
         height: 40
@@ -34,7 +34,7 @@
         [latitude]="presentLat" 
         [longitude]="presentLng" 
         [iconUrl]="{
-          url:Url,
+          url:presentPin,
           scaledSize: {
           width: 40,
           height: 40
@@ -47,7 +47,17 @@
         }">
       </agm-marker>
   </agm-map>
-  <div>
-      <img src="../../../../contents/buttons/goToTrip.png" alt="">
+  <div class="btn_area">
+    <!-- <ons-button class="btn_1"></ons-button> -->
+    <!-- <button class="btn_1">あ</button> -->
+    <!-- <button class="btn_1">ああ</button> -->
+    <!-- <a href="#" (click)="goToTimeTrip(navi)"><img [src]="iconPath" alt="ぼたん" height="100%"></a> -->
+    <!-- <img [src]="iconPath" alt="ぼたん" height="100%">-->
+    <img [src]="iconPath" alt="ぼたん" height="100%">
+    <!-- <ul>
+      <li><img [src]="iconPath" alt="ぼたん" height="100%"></li>
+      <li><img [src]="iconPath" alt="ぼたん" height="100%"></li>
+      <li><img [src]="iconPath" alt="ぼたん" height="100%"></li>
+    </ul> -->
   </div>
 </ons-page>

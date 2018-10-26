@@ -1,35 +1,38 @@
-import {Component, NgZone} from '@angular/core';
+import {Component, NgZone, Injectable} from '@angular/core';
 import * as ons from 'onsenui';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
 import {MapsAPILoader,GoogleMapsAPIWrapper } from '@agm/core';
+import { TimeTrip } from '../timeTrip/timeTrip';
+import {Upload} from '../upload/upload';
+
+import {  } from '../../../services/IndexedDbService';
+// import {DexieService} from 'ngx-dexie';//ﾃﾞｭｸｼ
 
 @Component({
   selector: 'map',
   template: require('./map.html'),
-  styleUrls: [
-    '../src/modules/children/map/map.css'
-  ]
+  styleUrls: ['../src/modules/children/map/map.css']
 })
+@Injectable()
 export class Map {
   presentLat: number = 42.319695;
   presentLng: number = 140.986877;
   centerLat:number;
   centerLng:number;
   markers: marker[] = [];
-
-
   zone: NgZone;
   apiLoader: MapsAPILoader;
   apiWrapper:GoogleMapsAPIWrapper;
   map;
-
+  iconPath: string = require('../../../../contents/buttons/goToTrip.png');
 
   constructor(private _navigator: OnsNavigator) {
     //座標
     this.getGeo();//現在地を取得
     this.centerLat = this.presentLat;
     this.centerLng = this.presentLng;
-    this.displayPin()
+    this.displayPin();
+    this.getMapData();
   }
 
   getGeo() {
@@ -73,9 +76,22 @@ export class Map {
     ];
     
   }
+  // マーカーをクリックした時に表示をセンターにする
   changeCenter(m:marker){
     this.centerLat = m.Latitude;
     this.centerLng = m.Longitude;
+  }
+  // DBからデータを取得する
+  getMapData(){
+  }
+  // ボタン押下イベント↓
+  // TimeTrip画面へ遷移
+  goToTimeTrip() {
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": 2018 , "LocationID":"1"}});
+  }
+  // アップロード画面へ遷移
+  goToUpload() {
+    this._navigator.nativeElement.pushPage(Upload, {data: {"year": 2018 , "LocationID":"1"}});
   }
 }
 // マーカー用インタフェース

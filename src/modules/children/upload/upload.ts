@@ -19,10 +19,26 @@ export class Upload {
 
   public changePhoto(event)
   {
-    this.fileControl(event.target.files)
 
+    var outFrame = document.getElementById("preview");
 
+    var imgTag = "";
+    let files: File[] = event.target.files;
+    let file: File = files[0];
+    //this.fileControl(files);
 
+    var fileReader = new FileReader();
+
+    fileReader.onload = function() {
+
+      imgTag += "<img src=\"" + this.result + "\" />";
+      outFrame.innerHTML = imgTag;
+    }
+
+    fileReader.readAsDataURL(file);
+
+    this.pictComment = imgTag;
+    this.pictTitle = file.name;
 
 
   }

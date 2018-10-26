@@ -9,6 +9,7 @@ import {
   OnsenModule,
   CUSTOM_ELEMENTS_SCHEMA,
   OnsNavigator,
+  Params
 } from 'ngx-onsenui';
 
 import { IndexedDbService } from '../../../services/IndexedDbService';
@@ -17,7 +18,88 @@ import { Upload } from '../upload/upload';
 @Component({
   selector: 'timeTrip',
   template: require('./timeTrip.html'),
-  styleUrls: ['../src/modules/children/timeTrip/timeTrip.css']
+  styles: [`
+  .left {
+    float: left;
+    margin-right: 3px;
+  }
+   
+  .item {
+    margin-bottom: 30px;
+  }
+  
+  .title {
+    font-size: 24px;
+    
+  }
+  
+  .material-icons {
+    font-size:35px;
+  }
+  
+  .btn {
+    color: black;
+    background-color: transparent;
+    box-shadow: none;
+    height: 35px;
+    width: 35px;
+    padding: 0px;
+    margin-right: 10px;
+  }
+  
+  .adressSelect{
+    width: calc(100% - 35px - 10px);
+  }
+  
+  .carousel_text {
+    position: absolute; 
+    bottom: 0; 
+    right: 30px; 
+    margin-bottom: 10px;
+    font-size: 30px;
+    color: darkgray;
+  }
+  
+  .carousel_photo {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+  }
+  
+  .carousel_erricon {
+    margin: auto;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 35px;
+    height: 35px;
+  }
+  
+  .photoModal {
+    height: 300px;
+    width: 300px;
+    margin: auto;
+  }
+  
+  .modal_text {
+    position: relative;
+    top: 250px;
+    left: 90px;
+    font-size: 30px;
+    color: dimgray;
+  }
+  
+  #carousel {
+    height: 200px; 
+    width: 80%;
+    margin: 0 auto;
+  }`]
 })
 export class TimeTrip {
   @ViewChild('carousel') carousel;
@@ -44,15 +126,20 @@ export class TimeTrip {
   locationId: string = "";
   infoList: TimeTripPhotoInfo[] = [];
   info: TimeTripPhotoInfo = null;
+  targetYear: number = 0;
 
   isImgErrList: boolean[] = [];
 
-  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService) {}
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
  
   async ngOnInit() {
+    console.log(this._params);
     // 遷移元画面から位置情報マスタを取得
-  　this.adress = this.adressListDB[0];
-    this.locationId = this.adress.LocationID;
+  // 　this.adress = this.adressListDB[0];
+    // this.locationId = this.adress.LocationID;
+    this.targetYear = this._params.data.year;
+    this.locationId = this._params.data.LocationID;
+    this.adress = this.adressListDB.find(f => f.LocationID == this.locationId);
 
     this.setInfoList(this.adress);
 
@@ -77,7 +164,11 @@ export class TimeTrip {
     this.infoList = this.infoListDB.filter(f => f.LocationID == adress.LocationID);
     var array = new Array(this.infoList.length);
     this.isImgErrList = this.isImgErrList.fill(false, 0, array.length);
-    this.info = this.infoList[1];
+    
+    this.info = this.infoList.find(f => f.Year == this.targetYear);
+    if (!this.info) {
+      this.info = this.infoList[0];
+    }
   }
 
   openModal(index: number) {

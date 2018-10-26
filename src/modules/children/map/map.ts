@@ -11,9 +11,25 @@ import {  } from '../../../services/IndexedDbService';
 @Component({
   selector: 'map',
   template: require('./map.html'),
-  styleUrls: ['../src/modules/children/map/map.css']
+  // styleUrls: ['../src/modules/children/map/map.css']
+/* App CSS */
+  styles: [`
+.map_area {
+    height:90%;
+  }
+  .btn_area {
+    height:10%;
+  }
+  .btn_area li {
+    display:inline-block;
+  }
+  agm-map {
+    height: 90%;
+  }`
+  ]
 })
-@Injectable()
+
+
 export class Map {
   presentLat: number = 42.319695;
   presentLng: number = 140.986877;

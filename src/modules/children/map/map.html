@@ -19,12 +19,12 @@
         fontSize: '15px',
         fontWeight: '700'
       }"
-      (markerClick)="changeCenter(m)"
+      (markerClick)="changeCenter(m.latitude, m.longitude)"
       >
       <agm-info-window>
         <table>
           <tr>
-            <td>タイトル</td>
+            <td>場所</td>
             <td>{{m.Address}}</td>
           </tr>
         </table>
@@ -41,23 +41,13 @@
           }
         }"
         [label]="{
-          text: '日本製鋼所',
+          text: '現在地',
           fontSize: '15px',
           fontWeight: '700'
         }">
       </agm-marker>
   </agm-map>
   <div class="btn_area">
-    <!-- <ons-button class="btn_1"></ons-button> -->
-    <!-- <button class="btn_1">あ</button> -->
-    <!-- <button class="btn_1">ああ</button> -->
-    <!-- <a href="#" (click)="goToTimeTrip(navi)"><img [src]="iconPath" alt="ぼたん" height="100%"></a> -->
-    <!-- <img [src]="iconPath" alt="ぼたん" height="100%">-->
     <img [src]="iconPath" alt="ぼたん" height="100%">
-    <!-- <ul>
-      <li><img [src]="iconPath" alt="ぼたん" height="100%"></li>
-      <li><img [src]="iconPath" alt="ぼたん" height="100%"></li>
-      <li><img [src]="iconPath" alt="ぼたん" height="100%"></li>
-    </ul> -->
   </div>
 </ons-page>

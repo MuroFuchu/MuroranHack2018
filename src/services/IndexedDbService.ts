@@ -43,4 +43,10 @@ export class IndexedDbService {
 
         return data;
     }
+
+    public async getMstLocationInfo(){
+        var data = null;
+        data = await this.dexieService.toArray('MstLocationInfo');
+        return data;
+    }
 }

@@ -11,31 +11,43 @@
     </div>
 
     <!-- 写真 -->
-    <div id="preview"></div>
+    <div id="previewArea">
+    </div>
 
     <!-- 写真の情報 -->
     <ons-list>
       <ons-list-header>いつの写真？</ons-list-header>
       <ons-list-item>
-        <ons-input placeholder="" [(value)]="pictTitle"></ons-input>
+        <ons-input type="number" [(value)]="pictYear"></ons-input>
       </ons-list-item>
       <ons-list-header>写真のタイトルは？</ons-list-header>
       <ons-list-item>
-        <ons-input placeholder="" [(value)]="pictTitle"></ons-input>
+        <ons-input type="text" [(value)]="pictTitle"></ons-input>
       </ons-list-item>
       <ons-list-header>コメントをどうぞ</ons-list-header>
       <ons-list-item>
-        <ons-input placeholder="" [(value)]="pictComment"></ons-input>
+        <ons-input type="text" [(value)]="pictComment"></ons-input>
       </ons-list-item>
     </ons-list>
 
     <!-- 保存 -->
+    <div id="uploadBtnArea">
+
+      <button id="uploadBtn">
+        <i class="material-icons">cloud_upload</i>
+      </button>
+
+    </div>
 
     <!-- 写真を開く -->
-    <input id="photoUpload" type="file" style="display: none" (change)="changePhoto($event)">
-    <button class="center" onclick="document.getElementById('photoUpload').click();">
-      <i class="material-icons">insert_photo</i>
-    </button>
+    <div id="openBtnArea">
+
+      <input id="openPhoto" type="file" style="display: none" (change)="changePhoto($event)">
+      <button id="openBtn" onclick="document.getElementById('openPhoto').click();">
+        <i class="material-icons">insert_photo</i>
+      </button>
+
+      </div>
 
 
 

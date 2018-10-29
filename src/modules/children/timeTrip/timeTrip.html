@@ -6,6 +6,7 @@
 
   <div class="content">
     <ons-list>
+      <!-- 検索エリア -->
       <ons-list-item style="width: 100%;">
         <ons-button class="btn" (click)="goToMenu(navi)">
           <i class="material-icons">home</i>
@@ -16,6 +17,8 @@
           </option>
         </ons-select>
       </ons-list-item>
+
+      <!-- 写真エリア -->
       <ons-list-item style="width: 100%;">
         <ons-carousel #carousel 
         　swipeable auto-scroll
@@ -27,12 +30,16 @@
           </ons-carousel-item>
         </ons-carousel>
       </ons-list-item>
+
+      <!-- 情報エリア -->
       <ons-list-item>
         <div align="center" style="width: 100%;">
           <div class="item title">{{info.Year}} 年</div>
           <div class="item title">{{info.Title}}</div>
           <div class="item" style="margin-top: 50px;">{{info.Comment}}</div>
-          <div class="item"><ons-button (click)="goToUpload()" class="btn"><i class="material-icons">edit</i></ons-button></div>
+          <div class="item">
+            <ons-button (click)="goToUpload()" class="btn"><i class="material-icons">edit</i></ons-button>
+          </div>
         </div>
       </ons-list-item>
     </ons-list>

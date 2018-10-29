@@ -3,9 +3,34 @@
     <div class="center">Map</div>
     <div class="right"><ons-back-button>Back</ons-back-button></div>
   </ons-toolbar>
-  <!-- <div class="map_area"> -->
-    <agm-map [latitude]="centerLat" [longitude]="centerLng">
-      <agm-marker
+  <agm-map [latitude]="centerLat" [longitude]="centerLng">
+    <agm-marker *ngFor="let m of markers;" 
+      [latitude]="m.Latitude" 
+      [longitude]="m.Longitude" 
+      [iconUrl]="{
+        url:presentPin,
+        scaledSize: {
+        width: 40,
+        height: 40
+        }
+      }"
+      [label]="{
+        text: m.Address,
+        fontSize: '15px',
+        fontWeight: '700'
+      }"
+      (markerClick)="changeCenter(m.latitude, m.longitude)"
+      >
+      <agm-info-window>
+        <table>
+          <tr>
+            <td>場所</td>
+            <td>{{m.Address}}</td>
+          </tr>
+        </table>
+      </agm-info-window>
+    </agm-marker>
+    <agm-marker
         [latitude]="presentLat" 
         [longitude]="presentLng" 
         [iconUrl]="{
@@ -21,8 +46,8 @@
           fontWeight: '700'
         }">
       </agm-marker>
-    </agm-map>
-    <div class="btn_area">
-      <img src="../../../../contents/goToTrip.png" width="10" height="10" alt="あ"/>
-    </div>
+  </agm-map>
+  <div class="btn_area">
+    <img [src]="iconPath" alt="ぼたん" height="100%">
+  </div>
 </ons-page>

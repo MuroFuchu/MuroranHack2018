@@ -6,9 +6,16 @@
   <div class="content">
 
     <!-- 位置 -->
-    <div style="vertical-align: -webkit-baseline-middle">
-      <p><i class="material-icons">home</i>{{pictAddress}}</p>
-    </div>
+    <ons-list>
+      <ons-list-item style="width: 100%;">
+        <p><i class="material-icons">home</i></p>
+        <ons-select class="addressSelect" [(ngModel)]="locationId" (change)="changeAddress($event)">
+          <option *ngFor="let addressItem of addressList" [value]="addressItem.LocationID">
+            {{ addressItem.Address }}
+          </option>
+        </ons-select>
+      </ons-list-item>
+    </ons-list>
 
     <!-- 写真 -->
     <div id="previewArea">
@@ -18,7 +25,7 @@
     <ons-list>
       <ons-list-header>いつの写真？</ons-list-header>
       <ons-list-item>
-        <ons-input type="number" [(value)]="pictYear"></ons-input>
+        <ons-input type="number" maxlength="4" [(value)]="pictYear"></ons-input>
       </ons-list-item>
       <ons-list-header>写真のタイトルは？</ons-list-header>
       <ons-list-item>
@@ -33,7 +40,7 @@
     <!-- 保存 -->
     <div id="uploadBtnArea">
 
-      <button id="uploadBtn">
+      <button id="uploadBtn" (click)="uploadPhotoConfirm();">
         <i class="material-icons">cloud_upload</i>
       </button>
 

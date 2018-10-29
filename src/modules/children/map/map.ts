@@ -61,8 +61,8 @@ export class Map {
       function(position){
         comp.presentLat = position.coords.latitude;
         comp.presentLng = position.coords.longitude;
-        comp.presentLat = 42.319695;//JSW仕様
-        comp.presentLng = 140.986877;//JSW仕様
+        comp.presentLat = 42.319744;//室蘭NISCO仕様
+        comp.presentLng = 140.986007;//室蘭NISCO仕様
 
         console.log(`${comp.presentLat} / ${comp.presentLng}`);
 
@@ -85,16 +85,8 @@ export class Map {
     .catch(function(value){
       console.log(value);
     });
-    //var marker = this.apiWrapper.createMarker().then(m => m.);
-    this.getGeo();
-    // this.markers = [
-    //   {LocationID:1, Address:'あ', Latitude:42.339825, Longitude:140.943745,Url:'../contents/icons/pin_normal.svg'/*,areaName:'室蘭水族館'*/},
-    //   {LocationID:2, Address:'い', Latitude:42.319695, Longitude:140.986877,Url:'../contents/icons/pin_normal.svg'/*,areaName:'日本製鋼所'*/},
-    //   {LocationID:3, Address:'う', Latitude:42.318910, Longitude:140.972560,Url:'../contents/icons/pin_normal.svg'/*,areaName:'日鋼倉庫'*/},
-    //   {LocationID:4, Address:'え', Latitude:42.318417, Longitude:140.970667,Url:'../contents/icons/pin_normal.svg'/*,areaName:'室蘭中央通り'*/},
-    //   // {lat:, lng:,url:'../images/icon/pin_free.svg',areaName:'日鋼倉庫',tel:'09012341234',waitingNo:1,reservationNo:10 },
-    // ];
-    
+    // this.getGeo();
+   
   }
   // マーカーをクリックした時に表示をセンターにする
   // changeCenter(m:marker){
@@ -109,13 +101,14 @@ export class Map {
       console.log('データが取得できなかった');
       this.markers = [];
     }else{
-      data.forEach(a => {
+      data.forEach(data => {
         this.markers.push(
-          { LocationID:a.LocationID,
-            Address:a.Address,
-            Latitude:a.Latitude,
-            Longitude:a.Longitude,
-            Url:'../contents/icons/pin_normal.svg'
+          { LocationID:data.LocationID,
+            Title:data.Title,
+            Address:data.Address,
+            Latitude:data.Latitude,
+            Longitude:data.Longitude,
+            Url:'./contents/icons/pin_normal.svg'
           }
         );
       });
@@ -134,6 +127,7 @@ export class Map {
 // マーカー用インタフェース
 interface marker{
   LocationID:number;//ロケーションID
+  Title:string;//タイトル
   Address:string;//住所
   Latitude:number;//x座標
   Longitude:number;//y座標

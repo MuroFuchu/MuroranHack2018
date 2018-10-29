@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IndexedDbService } from '../../../services/IndexedDbService';
 import { OnsNavigator, Params } from 'ngx-onsenui';
 
@@ -15,23 +15,27 @@ import * as ons from 'onsenui';
     width: 100%;
   }
 
-  .footer #uploadBtn {
-
-  }
-
-  .footer #openBtn {
-    
+  .btn {
+    color: black;
+    background-color: transparent;
+    box-shadow: none;
+    height: 35px;
+    width: 35px;
+    padding: 0px;
+    margin-right: 10px;
   }
 
 
   `]
 })
 export class Upload {
- 
+
   photoLocationID: string = '';
   photoAddress: string = '';
   photoYear: number = 0;
   photoComment: string = '';
+
+  inputAccept: string = '';
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
 
@@ -42,6 +46,9 @@ export class Upload {
     this.photoAddress = this._params.data.Address;
     this.photoYear = this._params.data.Year;
 
+    // Element情報設定
+    this.inputAccept = "image/*";
+
   }
 
   //#region 公開処理
@@ -49,24 +56,19 @@ export class Upload {
   // ファイル選択ボタン
   public changePhoto(event)
   {
-    var outFrame = document.getElementById("previewArea");
-    var imgTag = "";
     let files: File[] = event.target.files;
     let file: File = files[0];
 
     var fileReader = new FileReader();
-
     fileReader.onload = function() {
 
-      var binStr = fileReader.result;
-      var b64 = btoa(binStr);
-      var imgElem = document.getElementById('photoPreview');
-
-      imgElem.src = "data:image/png;base64," + b64;
+      var imgElem: HTMLImageElement = document.getElementById('photoPreview') as HTMLImageElement;
+      var b64 = btoa(fileReader.result.toString());
+      imgElem.src = "data:image/jpeg;base64," + b64;
 
     }
 
-    fileReader.readAsBinaryString(file)
+    fileReader.readAsBinaryString(file);
 
   }
 
@@ -96,12 +98,11 @@ export class Upload {
 
 //#region 非公開処理
 
-
   // 写真情報DB登録処理
   private uploadPhoto()
   {
     try {
-      var imgElem = document.getElementById('photoPreview');
+      var imgElem: HTMLImageElement = document.getElementById('photoPreview') as HTMLImageElement;
       var photoInfo: TimeTripPhotoInfo = null;
 
       photoInfo = new TimeTripPhotoInfo()
@@ -109,6 +110,7 @@ export class Upload {
       photoInfo.LocationID = this.photoLocationID;
       photoInfo.Comment = this.photoComment;
       photoInfo.Bin = imgElem.src;
+
       // 最終更新日は空白で良い！
       this._indexedDbService.addOnePhotoInfo(photoInfo);
     } catch (error) {
@@ -126,7 +128,7 @@ export class Upload {
   // エラーチェック
   private errorCheck()
   {
-    var imgElem = document.getElementById('photoPreview');
+    var imgElem: HTMLImageElement = document.getElementById('photoPreview') as HTMLImageElement;
     if (imgElem.src == "")
     {
       ons.notification.alert({title: 'エラー', message: 'アップロードする写真を選択してください。'})
@@ -154,9 +156,4 @@ class TimeTripPhotoInfo {
   Comment: string;
   Bin: string;
   LastUpdateDate: string;
-}
-
-class YearInfo {
-  YearDisp: string;
-  Year: number;
 }

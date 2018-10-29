@@ -50,8 +50,22 @@ export class IndexedDbService {
     }
 
     public async getMstLocationInfo(){
+        //alert('test');
         var data = null;
         data = await this.dexieService.toArray('MstLocationInfo');
+        // var data2 = await this.dexieService.filter('MstLocationInfo',(v) =>
+        // {
+        //     console.log(v); 
+        //     window.alert(v);
+        //     return true;
+        // });
+
+        // await this.dexieService.filter('MstLocationInfo',(v) => {
+        //     return true;
+        // });
+
+        // console.log(data2); 
+       
         return data;
     }
 }

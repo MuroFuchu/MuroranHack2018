@@ -61,8 +61,8 @@ export class Map {
       function(position){
         comp.presentLat = position.coords.latitude;
         comp.presentLng = position.coords.longitude;
-        // comp.presentLat = 42.319695;//JSW仕様
-        // comp.presentLng = 140.986877;//JSW仕様
+        comp.presentLat = 42.319695;//JSW仕様
+        comp.presentLng = 140.986877;//JSW仕様
 
         console.log(`${comp.presentLat} / ${comp.presentLng}`);
 

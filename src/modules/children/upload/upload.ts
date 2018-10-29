@@ -15,7 +15,13 @@ import * as ons from 'onsenui';
     width: 100%;
   }
 
-  .footer #
+  .footer #uploadBtn {
+
+  }
+
+  .footer #openBtn {
+    
+  }
 
 
   `]
@@ -91,57 +97,50 @@ export class Upload {
 //#region 非公開処理
 
 
-// 写真情報DB登録処理
-private uploadPhoto()
-{
-  try {
+  // 写真情報DB登録処理
+  private uploadPhoto()
+  {
+    try {
+      var imgElem = document.getElementById('photoPreview');
+      var photoInfo: TimeTripPhotoInfo = null;
+
+      photoInfo = new TimeTripPhotoInfo()
+      photoInfo.Year = this.photoYear;
+      photoInfo.LocationID = this.photoLocationID;
+      photoInfo.Comment = this.photoComment;
+      photoInfo.Bin = imgElem.src;
+      // 最終更新日は空白で良い！
+      this._indexedDbService.addOnePhotoInfo(photoInfo);
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+
+    ons.notification.alert({
+      title: 'ありがとう！',
+      message: '素敵な写真ですね！',
+    });
+    
+  }
+
+  // エラーチェック
+  private errorCheck()
+  {
     var imgElem = document.getElementById('photoPreview');
-    var photoInfo: TimeTripPhotoInfo = null;
-    photoInfo = new TimeTripPhotoInfo()
-    photoInfo.Year = this.photoYear;
-    photoInfo.LocationID = this.photoLocationID;
-    photoInfo.Comment = this.photoComment;
-    photoInfo.Bin = imgElem.src;
-    photoInfo.LastUpdateDate = this.getLastUpdateDate();
-    this._indexedDbService.addOnePhotoInfo(photoInfo);
-  } catch (error) {
-    console.log(error);
-    return;
+    if (imgElem.src == "")
+    {
+      ons.notification.alert({title: 'エラー', message: 'アップロードする写真を選択してください。'})
+      return false;
+    }
+
+    if (this.photoYear == null)
+    {
+      ons.notification.alert({title: 'エラー', message: '年を入力してください。'})
+      return false;
+    };
+
+    return true;
   }
-
-  ons.notification.alert({
-    title: 'ありがとう！',
-    message: '素敵な写真ですね！',
-  });
-  
-}
-  
-
-private getLastUpdateDate()
-{
-  var nowTime = new Date();
-  return nowTime.getFullYear.toString() + "/" + 
-         nowTime.getMonth.toString() + "/" +
-         nowTime.getDay.toString();
-}
-
-private errorCheck()
-{
-  var imgElem = document.getElementById('photoPreview');
-  if (imgElem.src == "")
-  {
-    ons.notification.alert({title: 'エラー', message: 'アップロードする写真を選択してください。'})
-    return false;
-  }
-
-  if (this.photoYear == null)
-  {
-    ons.notification.alert({title: 'エラー', message: '年を入力してください。'})
-    return false;
-  };
-
-  return true;
-}
 
 //#endregion
 

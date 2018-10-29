@@ -125,7 +125,8 @@ export class Map {
   goToTimeTrip() {
     if(this.locationID == undefined)
     {
-      alert("閲覧したい箇所を選択してください。");
+      ons.notification.alert({ message: '閲覧したいピンを選択してください。', title:'ピンを選択してください。' });
+      // alert("閲覧したい箇所を選択してください。");
     }else{
       this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": undefined , "LocationID":this.locationID}});
     }

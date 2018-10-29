@@ -1,13 +1,42 @@
 <ons-toolbar>
   <div class="left"><ons-back-button>Back</ons-back-button></div>
-  <div class="center">Map</div>
+  <div class="center">地図から探す</div>
 </ons-toolbar>
-<agm-map [latitude]="centerLat" [longitude]="centerLng" [zoom]=15>
+<agm-map [latitude]="centerLat" [longitude]="centerLng" [zoom]=15 [disableDoubleClickZoom]="true" (mapDblClick)="clickMap($event)">
+  <agm-marker
+    [latitude]="lastClicklat" 
+    [longitude]="lastClicklng"
+    [iconUrl]="{
+      url:markerPin1,
+      scaledSize: {
+      width: 40,
+      height: 40
+      }
+    }"
+    [label]="{
+      text: 'タップしたマーカー',
+      fontSize: '10px',
+      fontWeight: '700'
+    }
+  ">
+    <agm-info-window>
+      <table>
+        <tr>
+          <td>x座標：</td>
+          <td>{{lastClicklat}}</td>
+        </tr>
+        <tr>
+          <td>y座標：</td>
+          <td>{{lastClicklng}}</td>
+        </tr>
+      </table>
+    </agm-info-window>
+  </agm-marker>
   <agm-marker *ngFor="let m of markers;" 
     [latitude]="m.Latitude" 
     [longitude]="m.Longitude" 
     [iconUrl]="{
-      url:presentPin,
+      url:markerPin1,
       scaledSize: {
       width: 40,
       height: 40
@@ -23,7 +52,7 @@
     <agm-info-window>
       <table>
         <tr>
-          <td>タイトル：</td>
+          <td>名称：</td>
           <td>{{m.Title}}</td>
         </tr>
         <tr>
@@ -41,7 +70,7 @@
       [latitude]="presentLat" 
       [longitude]="presentLng"
       [iconUrl]="{
-        url:presentPin,
+        url:markerPin1,
         scaledSize: {
         width: 40,
         height: 40
@@ -56,6 +85,7 @@
     </agm-marker>
 </agm-map>
 <div class="btn_area">
-  <ons-button (click)="goToTimeTrip()" style="height: 100%; background-color:transparent"><img [src]="iconPathTrip" alt="ぼたん" height="100%"></ons-Button>
-  <ons-button (click)="goToUpload()" style="height: 100%; background-color:transparent"><img [src]="iconPathRegist" alt="ぼたん" height="100%"></ons-Button>
+  <ons-button class="btn_icon_style btn_icon_style_left"></ons-Button>
+  <ons-button (click)="goToTimeTrip()" class="btn_icon_style btn_icon_style_center"><img [src]="iconPathTrip" alt="TimeTrip画面へ"></ons-Button>
+  <ons-button (click)="goToUpload()" class="btn_icon_style btn_icon_style_right"><img [src]="iconPathRegist" alt="画像アップロード画面へ"></ons-Button>
 </div>

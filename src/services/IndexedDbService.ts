@@ -52,10 +52,7 @@ export class IndexedDbService {
 
     // 位置情報マスタ全件取得
     public async getMstLocationInfo(){
-        var data = null;
-        data = await this.dexieService.toArray('MstLocationInfo');
-       
-        return data;
+        return await this.dexieService.toArray('MstLocationInfo');
     }
 
     // 指定した座標付近のマスタを取得する

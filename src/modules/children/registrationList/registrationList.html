@@ -6,9 +6,10 @@
   <div class="content">
     <ons-list style="height: 100%;">
       <ons-list-item style="width: 100%;"  *ngFor="let Registration of RegistrationList" [value]="Registration.Title">
-            <span class="registration_title">{{ Registration.Title }}</span>
-            <br>
-            <span class="registration_comment">{{ Registration.Comment }}</span>
+        <img src="image/jpg;base64,${Registration.Bin}" alt="">
+        <span class="registration_title">{{ Registration.Title }}</span>
+        <br>
+        <span class="registration_comment">{{ Registration.Comment }}</span>
       </ons-list-item>
     </ons-list>
   </div>

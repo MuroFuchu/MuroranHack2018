@@ -44,6 +44,8 @@ export class Map {
     this.getGeo();//現在地を取得
     this.centerLat = this.presentLat;
     this.centerLng = this.presentLng;
+    console.log(this.centerLat);
+    console.log(this.centerLng);
     this.getMapData();
     this.displayPin();
   }
@@ -60,14 +62,16 @@ export class Map {
         // comp.presentLat = 42.319695;//JSW仕様
         // comp.presentLng = 140.986877;//JSW仕様
 
-        console.log(`${comp.presentLat} / ${comp.presentLng}`)
+        console.log(`${comp.presentLat} / ${comp.presentLng}`);
+
+        comp.changeCenter(comp.presentLat,comp.presentLng);
       },
       function(){
         alert("error");
       },
       option
     );
-    this.changeCenter(comp.presentLat,comp.presentLng);
+    
   }
 
   displayPin(){

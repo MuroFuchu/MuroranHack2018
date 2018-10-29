@@ -1,6 +1,6 @@
 <ons-toolbar>
+  <div class="left"><ons-back-button>Back</ons-back-button></div>
   <div class="center">Map</div>
-  <div class="right"><ons-back-button>Back</ons-back-button></div>
 </ons-toolbar>
 <agm-map [latitude]="centerLat" [longitude]="centerLng" [zoom]=15>
   <agm-marker *ngFor="let m of markers;" 
@@ -14,11 +14,11 @@
       }
     }"
     [label]="{
-      text: m.Address,
+      text: m.Title,
       fontSize: '10px',
       fontWeight: '700'
     }"
-    (markerClick)="changeCenter(m.latitude, m.longitude)"
+    (markerClick)="clickMarker(m)"
     >
     <agm-info-window>
       <table>
@@ -37,7 +37,7 @@
       </table>
     </agm-info-window>
   </agm-marker>
-  <!-- <agm-marker
+  <agm-marker
       [latitude]="presentLat" 
       [longitude]="presentLng"
       [iconUrl]="{
@@ -53,10 +53,9 @@
         fontWeight: '700'
       }
       ">
-    </agm-marker> -->
+    </agm-marker>
 </agm-map>
 <div class="btn_area">
   <ons-button (click)="goToTimeTrip()" style="height: 100%; background-color:transparent"><img [src]="iconPathTrip" alt="ぼたん" height="100%"></ons-Button>
   <ons-button (click)="goToUpload()" style="height: 100%; background-color:transparent"><img [src]="iconPathRegist" alt="ぼたん" height="100%"></ons-Button>
-    <!-- <button style="height:100%" onclick="goToTimeTrip()"><img [src]="iconPath" alt="ぼたん" height="100%"></button> -->
 </div>

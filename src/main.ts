@@ -24,6 +24,7 @@ import { TimeTrip } from './modules/children/timeTrip/timeTrip';
 
 // Service
 import { IndexedDbService } from './services/IndexedDbService';
+import {DexieServiceEx} from './services/DexieServiceEx';
 import { GetJsonService } from './services/GetJsonService';
  
 const config: DexieConfig = {
@@ -80,6 +81,7 @@ if (process.env.NODE_ENV === 'production') {
      ],
      providers: [
         IndexedDbService,
+        DexieServiceEx,
         GetJsonService,
      ],
      schemas: [

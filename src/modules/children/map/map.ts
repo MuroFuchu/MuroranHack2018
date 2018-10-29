@@ -29,6 +29,7 @@ import { IndexedDbService } from '../../../services/IndexedDbService';//ﾃﾞ�
 })
 
 export class Map {
+  locationID: number;
   presentLat: number;
   presentLng: number;
   centerLat:number;
@@ -48,7 +49,7 @@ export class Map {
     this.centerLng = this.presentLng;
     console.log(this.centerLat);
     console.log(this.centerLng);
-    this.getMapData();
+    this.getMapData(this.centerLat,this.centerLng);
     this.displayPin();
   }
 
@@ -65,8 +66,9 @@ export class Map {
         comp.presentLng = 140.986007;//室蘭NISCO仕様
 
         console.log(`${comp.presentLat} / ${comp.presentLng}`);
-
+        // var data = await this._indexedDbService.getMstLocationByRange(lat,lng);
         comp.changeCenter(comp.presentLat,comp.presentLng);
+        comp.getMapData(comp.centerLat,comp.centerLng);
       },
       function(){
         alert("error");
@@ -88,15 +90,19 @@ export class Map {
     // this.getGeo();
    
   }
-  // マーカーをクリックした時に表示をセンターにする
-  // changeCenter(m:marker){
+  //選択したマーカーの情報を取得する
+  clickMarker(m: marker){
+    this.locationID = m.LocationID;
+    this.changeCenter(m.LocationID,m.Longitude);
+  }
+  //指定された座標を中心にする
   changeCenter(lat:number, lng:number){
     this.centerLat = lat;
     this.centerLng = lng;
   }
   // DBからデータを取得する
-  async getMapData(){
-    var data = await this._indexedDbService.getMstLocationInfo();
+  async getMapData(lat:number, lng:number){
+    var data = await this._indexedDbService.getMstLocationByRange(lat,lng);
     if(data==null){
       console.log('データが取得できなかった');
       this.markers = [];
@@ -117,11 +123,21 @@ export class Map {
   // ボタン押下イベント↓
   // TimeTrip画面へ遷移
   goToTimeTrip() {
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": 2018 , "LocationID":"1"}});
+    if(this.locationID == undefined)
+    {
+      alert("閲覧したい箇所を選択してください。");
+    }else{
+      this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": undefined , "LocationID":this.locationID}});
+    }
   }
   // アップロード画面へ遷移
   goToUpload() {
-    this._navigator.nativeElement.pushPage(Upload, {data: {"year": 2018 , "LocationID":"1"}});
+    if(this.locationID == undefined)
+    {
+      alert("閲覧したい箇所を選択してください。");
+    }else{
+      this._navigator.nativeElement.pushPage(Upload, {data: {"year": 2018 , "LocationID":this.locationID}});
+    }
   }
 }
 // マーカー用インタフェース

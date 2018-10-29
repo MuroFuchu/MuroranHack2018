@@ -50,28 +50,17 @@ export class IndexedDbService {
         return data;
     }
 
+    // 位置情報マスタ全件取得
     public async getMstLocationInfo(){
-        //alert('test');
         var data = null;
         data = await this.dexieService.toArray('MstLocationInfo');
-        // var data2 = await this.dexieService.filter('MstLocationInfo',(v) =>
-        // {
-        //     console.log(v); 
-        //     window.alert(v);
-        //     return true;
-        // });
-
-        // await this.dexieService.filter('MstLocationInfo',(v) => {
-        //     return true;
-        // });
-
-        // console.log(data2); 
        
         return data;
     }
 
+    // 指定した座標付近のマスタを取得する
     public async getMstLocationByRange(latitude:number, longitude:number){
-        var half:number = 0.025;
+        var half:number = 0.015;
         var data = await this.dexieService
             .where('MstLocationInfo','Latitude').between(latitude-half,latitude+half)
             .and((data) => {

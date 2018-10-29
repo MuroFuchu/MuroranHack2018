@@ -8,7 +8,8 @@ import {Upload} from '../upload/upload';
 import { IndexedDbService } from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 
 @Component({
-  selector: 'map',
+  selector: 'ons-page[map]',
+  // selector: 'map',
   template: require('./map.html'),
   // styleUrls: ['../src/modules/children/map/map.css']
   styles: [`
@@ -37,7 +38,8 @@ export class Map {
   apiLoader: MapsAPILoader;
   apiWrapper:GoogleMapsAPIWrapper;
   map;
-  iconPath: string = require('../../../../contents/buttons/goToTrip.png');
+  iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
+  iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
 
   constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) {
     //座標

@@ -35,11 +35,7 @@
   <agm-marker *ngFor="let m of markers;" 
     [latitude]="m.Latitude" 
     [longitude]="m.Longitude" 
-    [label]="{
-      text: m.Title,
-      fontSize: '10px',
-      fontWeight: '700'
-    }"
+    [label]="m.mLabel"
     [iconUrl]="{
       url:m.iconUrl,
       scaledSize: {

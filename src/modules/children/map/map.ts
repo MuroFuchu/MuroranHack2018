@@ -2,7 +2,7 @@ import * as ons from 'onsenui';
 import {Upload} from '../upload/upload';
 import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
-import {Component, NgZone, Injectable} from '@angular/core';
+import {Component, NgZone, Injectable, OnInit} from '@angular/core';
 import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 
@@ -43,7 +43,8 @@ import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭ�
 })
 
 export class Map {
-  locationID: number;
+  locationID: string;
+  address: string;
   presentLat: number;
   presentLng: number;
   centerLat:number;
@@ -55,11 +56,15 @@ export class Map {
   apiLoader: MapsAPILoader;
   apiWrapper:GoogleMapsAPIWrapper;
   map;
+  selectedMarkerPin: string;
   markerPin1: string = require('../../../../contents/icons/pin_normal.svg');//マーカーピンのアイコンURL
+  markerPin2: string = require('../../../../contents/icons/pin_free.svg');//マーカーピンのアイコンURL
   iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
   iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
 
-  constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) {
+  constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) { }
+
+  async ngOnInit() {
     this.getGeo();
   }
 
@@ -79,7 +84,11 @@ export class Map {
         comp.displayPin();
       },
       function(){
-        ons.notification.alert({ message: '現在地を取得できるように設定してください。', title:'現在地が取得できません' });
+        ons.notification.alert({ message: '現在地を取得できるように設定してください。', title:'現在地が取得できません', callback:function(){
+          comp.presentLat =  42.319744;// 室蘭NISCO仕様
+          comp.presentLng = 140.986007;// 室蘭NISCO仕様
+          comp.changeCenter(comp.presentLat,comp.presentLng);
+        }});
       },
       option
     );
@@ -108,7 +117,8 @@ export class Map {
   //選択したマーカーの情報を取得する
   clickMarker(m: marker){
     this.locationID = m.LocationID;
-    this.changeCenter(m.LocationID,m.Longitude);
+    m.iconUrl = this.markerPin2;
+    this.changeCenter(m.Latitude,m.Longitude);
   }
   //指定された座標を中心にする
   changeCenter(lat:number, lng:number){
@@ -128,7 +138,8 @@ export class Map {
             Title:data.Title,
             Address:data.Address,
             Latitude:data.Latitude,
-            Longitude:data.Longitude
+            Longitude:data.Longitude,
+            iconUrl:this.markerPin1
           }
         );
       });
@@ -141,7 +152,7 @@ export class Map {
     {
       this.alertNonSelectPin();
     }else{
-      this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": undefined , "LocationID":this.locationID}});
+      this._navigator.nativeElement.pushPage(TimeTrip, { data: { LocationID: this.locationID } });
     }
   }
   // アップロード画面へ遷移
@@ -150,7 +161,7 @@ export class Map {
     {
       this.alertNonSelectPin();
     }else{
-      this._navigator.nativeElement.pushPage(Upload, {data: {"year": undefined , "LocationID":this.locationID}});
+      this._navigator.nativeElement.pushPage(Upload, { data: { LocationID: this.locationID, Address: this.address } });
     }
   }
   // アラート類
@@ -160,9 +171,10 @@ export class Map {
 }
 // マーカー用インタフェース
 interface marker{
-  LocationID:number;
+  LocationID:string;
   Title:string;
   Address:string;
   Latitude:number;
   Longitude:number;
+  iconUrl: string;
 }

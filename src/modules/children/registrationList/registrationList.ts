@@ -1,10 +1,11 @@
 import {Component} from '@angular/core';
 import * as ons from 'onsenui';
+import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
 import {IndexedDbService} from '../../../services/IndexedDbService';
 
 @Component({
-  selector: "onspage[title='registrationList']",
+  selector: "ons-page[title='registrationList']",
   template: require('./registrationList.html'),
   styles: [
   	`
@@ -13,8 +14,24 @@ import {IndexedDbService} from '../../../services/IndexedDbService';
       font-weight:bold;
     }
     .registration_comment{
-      font-size:14px;
-      
+      font-size:14px; 
+    }
+    .dataPicArea {
+      width:70%;
+    }
+    .dataMemoArea {
+      width:30%;
+    }
+    .dataMemoArea-title {
+      margin-left:5px;
+      margin-right:20px;
+      //font-size:16px;
+      font-weight:700;
+    }
+    .dataMemoArea-text {
+      margin-left:5px;
+      margin-right:20px;
+      //font-size:10px;
     }
     `
   ]
@@ -38,7 +55,7 @@ export class RegistrationList {
       data.forEach(registList => {
         this.RegistrationLists.push(
           {
-            PhotoId:registList.PhotoId,
+            PhotoId:registList.PhotoID,
             Year:registList.Year,
             LocationID:registList.LocationID,
             Title:registList.Title,
@@ -50,10 +67,17 @@ export class RegistrationList {
       });
     }
   }
+
+  // 写真をタップした時のイベント
+  clickPhoto(_locatonID:string, _photoId:number){
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {PhotoId: _photoId , LocationID:_locatonID}});
+    console.log('クリックしたLocationID' + _locatonID);
+    console.log('クリックしたPhotoId' + _photoId);
+  }
 }
 
 class RegistrationInfo {
-  PhotoId: string;
+  PhotoId: number;
   Year: number;
   LocationID: string;
   Title: string;

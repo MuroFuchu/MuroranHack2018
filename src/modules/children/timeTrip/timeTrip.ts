@@ -48,7 +48,7 @@ import { Upload } from '../upload/upload';
     margin-right: 10px;
   }
   
-  .adressSelect{
+  .addressSelect{
     width: calc(100% - 35px - 10px);
   }
   
@@ -107,7 +107,7 @@ export class TimeTrip {
   @ViewChild('modal') modal;
  
   // テストデータ
-  adressListDB: Adress[] = [
+  addressListDB: Address[] = [
     { LocationID: "a001", Address: "北海道登別市幌別町３－２０", Latitude: 10, longitude: 10 },
     { LocationID: "a002", Address: "東京都府中市府中町１－９", Latitude: 20, longitude: 10 },  
     { LocationID: "a003", Address: "岩手県宮古市五月町１－１", Latitude: 50, longitude: 10 },
@@ -125,7 +125,7 @@ export class TimeTrip {
     { PhotoId: "p009", Year: 2088, LocationID: "a003", Title: "宮古市魚菜市場　開業100周年", Comment: "宮古市魚菜市場が開業100周年を迎えました。人類が食事をやめ必要なエネルギーのみをインポートする時代でも、昔と変わらず新鮮な食材を売り続けています。", Bin: "k8aa", LastUpdateDate: "20181025" },
   ];
  
-  adress: Adress = null;
+  address: Address = null;
   locationId: string = "";
   infoList: TimeTripPhotoInfo[] = [];
   info: TimeTripPhotoInfo = null;
@@ -140,10 +140,10 @@ export class TimeTrip {
     // 遷移元画面から位置情報マスタを取得
     this.targetYear = this._params.data.year;
     this.locationId = this._params.data.LocationID;
-    this.adress = this.adressListDB.find(f => f.LocationID == this.locationId);
+    this.address = this.addressListDB.find(f => f.LocationID == this.locationId);
 
     // timeTrip情報を設定
-    this.setInfoList(this.adress);
+    this.setInfoList(this.address);
 
     // carouselの初期位置設定
     this.activeIndex = this.infoList.findIndex(s => s.PhotoId == this.info.PhotoId);
@@ -160,14 +160,14 @@ export class TimeTrip {
     this.info = this.infoList[event.activeIndex];
   }
 
-  changeAdress(event) {
-    this.adress = this.adressListDB.find(f => f.LocationID == event.target.value);
-    this.setInfoList(this.adress);
+  changeAddress(event) {
+    this.address = this.addressListDB.find(f => f.LocationID == event.target.value);
+    this.setInfoList(this.address);
     this.reloadCarousel();
   }
 
-  setInfoList(adress: Adress) {
-    this.infoList = this.infoListDB.filter(f => f.LocationID == adress.LocationID);
+  setInfoList(address: Address) {
+    this.infoList = this.infoListDB.filter(f => f.LocationID == address.LocationID);
     var array = new Array(this.infoList.length);
     this.isImgErrList = this.isImgErrList.fill(false, 0, array.length);
     
@@ -188,7 +188,7 @@ export class TimeTrip {
   }
 
   goToUpload() {
-    this._navigator.nativeElement.pushPage(Upload, {data: { Year: this.targetYear, LocationID: this.locationId}});
+    this._navigator.nativeElement.pushPage(Upload, {data: { LocationID: this.locationId, Address: this.address }});
   }
 
   convertImageSource(bin: string) {
@@ -203,7 +203,7 @@ export class TimeTrip {
 
 }
  
-class Adress {
+class Address {
   LocationID: string;
   Address: string;
   Latitude: number;

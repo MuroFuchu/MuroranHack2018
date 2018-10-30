@@ -139,12 +139,12 @@ export class TimeTrip {
     // カルーセルの初期設定
     this.initCrousel();
 
-    console.log(this._params);
-    console.log(this.locationInfoList);
-    console.log(this.location);
-    console.log(this.photoInfoAllList);
-    console.log(this.photoInfoList);
-    console.log(this.photoInfo);
+    // console.log(this._params);
+    // console.log(this.locationInfoList);
+    // console.log(this.location);
+    // console.log(this.photoInfoAllList);
+    // console.log(this.photoInfoList);
+    // console.log(this.photoInfo);
   }
 
   // カルーセル切り替え時

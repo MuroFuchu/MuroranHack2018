@@ -43,7 +43,7 @@ import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭ�
 })
 
 export class Map {
-  locationID: number;
+  locationID: string;
   presentLat: number;
   presentLng: number;
   centerLat:number;
@@ -55,7 +55,9 @@ export class Map {
   apiLoader: MapsAPILoader;
   apiWrapper:GoogleMapsAPIWrapper;
   map;
+  selectedMarkerPin: string;
   markerPin1: string = require('../../../../contents/icons/pin_normal.svg');//マーカーピンのアイコンURL
+  markerPin2: string = require('../../../../contents/icons/pin_free.svg');//マーカーピンのアイコンURL
   iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
   iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
 
@@ -108,7 +110,8 @@ export class Map {
   //選択したマーカーの情報を取得する
   clickMarker(m: marker){
     this.locationID = m.LocationID;
-    this.changeCenter(m.LocationID,m.Longitude);
+    m.iconUrl = this.markerPin2;
+    this.changeCenter(m.Latitude,m.Longitude);
   }
   //指定された座標を中心にする
   changeCenter(lat:number, lng:number){
@@ -128,7 +131,8 @@ export class Map {
             Title:data.Title,
             Address:data.Address,
             Latitude:data.Latitude,
-            Longitude:data.Longitude
+            Longitude:data.Longitude,
+            iconUrl:this.markerPin1
           }
         );
       });
@@ -160,9 +164,10 @@ export class Map {
 }
 // マーカー用インタフェース
 interface marker{
-  LocationID:number;
+  LocationID:string;
   Title:string;
   Address:string;
   Latitude:number;
   Longitude:number;
+  iconUrl: string;
 }

@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import * as ons from 'onsenui';
+import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
 import {IndexedDbService} from '../../../services/IndexedDbService';
 
@@ -49,6 +50,13 @@ export class RegistrationList {
         )
       });
     }
+  }
+
+  // 写真をタップした時のイベント
+  clickPhoto(LocatonID:string,Year:string){
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": Year , "LocationID":LocatonID}});    
+    console.log('クリックしたLocationID' + LocatonID);
+    console.log('クリックしたyear' + Year);
   }
 }
 

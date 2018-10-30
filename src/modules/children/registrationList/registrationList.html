@@ -16,7 +16,7 @@
       </div>
     </ons-list-item> -->
     <!-- <ons-list-header>Thumbnails and titles</ons-list-header> -->
-    <ons-list-item modifier="chevron" tappable *ngFor="let Registration of RegistrationLists" [value]="Registration.Title">
+    <ons-list-item modifier="chevron" tappable *ngFor="let Registration of RegistrationLists" [value]="Registration.Title" (click)="clickPhoto(Registration.LocationID,Registration.Year)">
       <div class="left">
           <img [src]="Registration.Bin" alt="Registration.Title">
       </div>

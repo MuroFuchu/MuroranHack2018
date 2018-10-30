@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component,ViewChild } from '@angular/core';
 import { IndexedDbService } from '../../../services/IndexedDbService';
 import { OnsNavigator, Params } from 'ngx-onsenui';
 import { TimeTrip } from '../timeTrip/timeTrip';
@@ -36,6 +36,7 @@ import * as ons from 'onsenui';
   `]
 })
 export class Upload {
+  @ViewChild('openPhoto') openPhoto : HTMLInputElement;
 
   photoLocationID: string = '';
   photoAddress: string = '';
@@ -59,6 +60,10 @@ export class Upload {
   }
 
   //#region 公開処理
+
+  public openFileDialog() {
+    this.openPhoto.click();
+  }
 
   // ファイル選択ボタン
   public changePhoto(event)

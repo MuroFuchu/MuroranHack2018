@@ -19,7 +19,7 @@
       fontWeight: '700'
     }
   ">
-    <agm-info-window>
+    <agm-info-window (infoWindowClose)="infoClosedEvent($event)">
       <table>
         <tr>
           <td>x座標：</td>
@@ -35,7 +35,12 @@
   <agm-marker *ngFor="let m of markers;" 
     [latitude]="m.Latitude" 
     [longitude]="m.Longitude" 
-    [label]="m.mLabel"
+    [label]=
+    "{
+      text: m.Title,
+      fontSize: '10px',
+      fontWeight: '700'
+    }"
     [iconUrl]="{
       url:m.iconUrl,
       scaledSize: {

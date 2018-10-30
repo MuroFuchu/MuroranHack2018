@@ -34,6 +34,7 @@ export class Upload {
   photoAddress: string = '';
   photoYear: number = 0;
   photoComment: string = '';
+  photoID: number = 0;
 
   inputAccept: string = '';
 
@@ -44,7 +45,6 @@ export class Upload {
     // パラメタ取得
     this.photoLocationID = this._params.data.LocationID;
     this.photoAddress = this._params.data.Address;
-    this.photoYear = this._params.data.Year;
 
     // Element情報設定
     this.inputAccept = "image/*";
@@ -88,14 +88,7 @@ export class Upload {
       callback: i => {
         if (i == 1) {
           this.uploadPhoto();
-
-          var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
-
-          if(p.length > 0) {
-            this._navigator.nativeElement.popPage();
-          } else {
-            this._navigator.nativeElement.replacePage(TimeTrip, {data: {hoge: "fuga"}});
-          }
+          this.pageChange();
         }
       }
     });
@@ -107,9 +100,9 @@ export class Upload {
 //#region 非公開処理
 
   // 写真情報DB登録処理
-  private uploadPhoto()
+  private async uploadPhoto()
   {
-    try {
+    try{
       var imgElem: HTMLImageElement = document.getElementById('photoPreview') as HTMLImageElement;
       var photoInfo: TimeTripPhotoInfo = null;
 
@@ -119,18 +112,29 @@ export class Upload {
       photoInfo.Comment = this.photoComment;
       photoInfo.Bin = imgElem.src;
 
-      // 最終更新日は空白で良い！
-      this._indexedDbService.addOnePhotoInfo(photoInfo);
+      var result = await this._indexedDbService.addOnePhotoInfo(photoInfo);
+      this.photoID = Number(result);
+
+      ons.notification.alert({
+        title: 'ありがとう！',
+        message: '素敵な写真ですね！',
+      });
+  
     } catch (error) {
       console.log(error);
       return;
     }
+  }
 
-    ons.notification.alert({
-      title: 'ありがとう！',
-      message: '素敵な写真ですね！',
-    });
-    
+  // アップロード後の画面遷移
+  private pageChange() {
+    var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
+    if(p.length > 0) {
+      this._navigator.nativeElement.popPage();
+    } else {
+      // TimeTripページ経由であれば、TimeTripページに戻る
+      this._navigator.nativeElement.replacePage(TimeTrip, {data: { LocationID: this.photoLocationID, PhotoID: this.photoID}});
+    }
   }
 
   // エラーチェック

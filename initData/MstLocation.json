@@ -10,6 +10,7 @@
     {"SlopeId" :"9","Title" :"陣屋海岸","Address" :"北海道 室蘭市 陣屋町１丁目","Latitude":42.365401,"Longitude":140.946223},
     {"SlopeId" :"10","Title" :"茶津岬","Address" :"北海道 室蘭市 茶津町","Latitude":42.32252,"Longitude":140.979634},
     {"SlopeId" :"11","Title" :"陣屋海岸","Address" :"北海道 室蘭市 陣屋町１丁目","Latitude":42.361003,"Longitude":140.952896},
-    {"SlopeId" :"12","Title" :"知利別社宅","Address" :"北海道 室蘭市 知利別町４丁目","Latitude":42.365746,"Longitude":141.024736}
-        
+    {"SlopeId" :"12","Title" :"知利別社宅","Address" :"北海道 室蘭市 知利別町４丁目","Latitude":42.365746,"Longitude":141.024736},
+    {"SlopeId" :"13","Title" :"府中駅","Address" :"東京都 府中市 宮町１丁目","Latitude":35.6721885,"Longitude":139.74557},
+    {"SlopeId" :"14","Title" :"宮古港フェリーターミナル","Address" :"岩手県 宮古市 磯鶏第４地割","Latitude":39.6264713,"Longitude":141.9682083}
 ]

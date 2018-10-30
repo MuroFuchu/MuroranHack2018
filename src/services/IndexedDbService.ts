@@ -33,8 +33,9 @@ export class IndexedDbService {
         this.dexieService.addMultiple(this.MstLocationInfo,locationInfoObjects);
     }
 
-    public addOnePhotoInfo(photoInfoObject: Object) {
-        this.dexieService.addOne(this.TrnPhotoInfo,photoInfoObject);
+    public async addOnePhotoInfo(photoInfoObject: Object) {
+       var result = await this.dexieService.addOne(this.TrnPhotoInfo,photoInfoObject);
+       return result;
     }
 
     public addMultiplePhotoInfo(photoInfoObjects: Object[]) {

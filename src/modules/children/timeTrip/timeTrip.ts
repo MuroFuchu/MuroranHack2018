@@ -130,7 +130,7 @@ export class TimeTrip {
     }
 
     // 写真情報取得
-    await this.setPhotoInfo(photoId);
+    await this.setPhotoInfo(locationId, photoId);
 
     // 読み込めなかった写真リスト初期化
     var array = new Array(this.photoInfoList.length);
@@ -178,7 +178,7 @@ export class TimeTrip {
   }
 
   // 写真情報設定
-  private async setPhotoInfo(photoID: number){
+  private async setPhotoInfo(locationID: string, photoID: number){
     // 時系列写真情報リスト取得
     this.photoInfoAllList = await this._indexedDbService.getTrnPhotoInfo();
 
@@ -190,7 +190,7 @@ export class TimeTrip {
           if( a.Year > b.Year ) return 1;
           return 0;
         })
-        .filter(f => f.LocationID == this.photoInfo.LocationID);
+        .filter(f => f.LocationID == locationID);
     }
 
     // activeな写真情報

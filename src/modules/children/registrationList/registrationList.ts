@@ -4,7 +4,7 @@ import {OnsNavigator,OnsenModule} from 'ngx-onsenui'
 import {IndexedDbService} from '../../../services/IndexedDbService';
 
 @Component({
-  selector: "onspage[title='registrationList']",
+  selector: "ons-page[title='registrationList']",
   template: require('./registrationList.html'),
   styles: [
   	`

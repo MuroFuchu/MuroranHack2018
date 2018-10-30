@@ -14,8 +14,24 @@ import {IndexedDbService} from '../../../services/IndexedDbService';
       font-weight:bold;
     }
     .registration_comment{
-      font-size:14px;
-      
+      font-size:14px; 
+    }
+    .dataPicArea {
+      width:70%;
+    }
+    .dataMemoArea {
+      width:30%;
+    }
+    .dataMemoArea-title {
+      margin-left:5px;
+      margin-right:20px;
+      //font-size:16px;
+      font-weight:700;
+    }
+    .dataMemoArea-text {
+      margin-left:5px;
+      margin-right:20px;
+      //font-size:10px;
     }
     `
   ]
@@ -54,7 +70,7 @@ export class RegistrationList {
 
   // 写真をタップした時のイベント
   clickPhoto(LocatonID:string,Year:string){
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": Year , "LocationID":LocatonID}});    
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": Year , "LocationID":LocatonID}});
     console.log('クリックしたLocationID' + LocatonID);
     console.log('クリックしたyear' + Year);
   }

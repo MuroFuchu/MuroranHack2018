@@ -62,7 +62,9 @@ export class Map {
   iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
   iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
 
-  constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) {
+  constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) { }
+
+  async ngOnInit() {
     this.getGeo();
   }
 
@@ -146,7 +148,7 @@ export class Map {
     {
       this.alertNonSelectPin();
     }else{
-      this._navigator.nativeElement.pushPage(TimeTrip, { data: { "LocationID": this.locationID } });
+      this._navigator.nativeElement.pushPage(TimeTrip, { data: { LocationID: this.locationID } });
     }
   }
   // アップロード画面へ遷移
@@ -155,7 +157,7 @@ export class Map {
     {
       this.alertNonSelectPin();
     }else{
-      this._navigator.nativeElement.pushPage(Upload, { data: { "LocationID": this.locationID, "Address": this.address } });
+      this._navigator.nativeElement.pushPage(Upload, { data: { LocationID: this.locationID, Address: this.address } });
     }
   }
   // アラート類

@@ -1,16 +1,14 @@
-<ons-page>
-  <ons-toolbar>
-    <div class="center">Registrations</div>
-    <div class="right"><ons-back-button>Back</ons-back-button></div>
-  </ons-toolbar>
-  <div class="content">
-    <ons-list style="height: 100%;">
-      <ons-list-item style="width: 100%;"  *ngFor="let Registration of RegistrationList" [value]="Registration.Title">
-        <img src="aaa" alt="">
-        <span class="registration_title">{{ Registration.Title }}</span>
-        <br>
-        <span class="registration_comment">{{ Registration.Comment }}</span>
-      </ons-list-item>
-    </ons-list>
-  </div>
-</ons-page>
+<ons-toolbar>
+  <div class="center">Registrations</div>
+  <div class="right"><ons-back-button>Back</ons-back-button></div>
+</ons-toolbar>
+<div class="content">
+  <ons-list style="height: 100%;">
+    <ons-list-item style="width: 100%;"  *ngFor="let Registration of RegistrationList" [value]="Registration.Title">
+      <!-- <img src="aaa" alt=""> -->
+      <span class="registration_title">{{ Registration.Title }}</span>
+      <br>
+      <span class="registration_comment">{{ Registration.Comment }}</span>
+    </ons-list-item>
+  </ons-list>
+</div>

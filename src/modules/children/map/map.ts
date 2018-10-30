@@ -7,7 +7,7 @@ import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 
 @Component({
-  selector: 'ons-page[map]',
+  selector: "ons-page[title='map']",
   template: require('./map.html'),
   // styleUrls: ['../src/modules/children/map/map.css']
   styles: [`

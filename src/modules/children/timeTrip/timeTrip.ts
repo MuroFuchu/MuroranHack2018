@@ -16,7 +16,7 @@ import { IndexedDbService } from '../../../services/IndexedDbService';
 import { Upload } from '../upload/upload';
 
 @Component({
-  selector: 'timeTrip',
+  selector: "ons-page[title='timeTrip']",
   template: require('./timeTrip.html'),
   // styleUrls: ['../src/modules/children/timeTrip/timeTrip.css'],
   styles: [`

@@ -11,9 +11,9 @@
         <ons-button class="btn" (click)="goToMenu(navi)">
           <i class="material-icons">home</i>
         </ons-button>
-        <ons-select class="adressSelect" [(ngModel)]="locationId" (change)="changeAdress($event)">
-          <option *ngFor="let adressItem of adressListDB" [value]="adressItem.LocationID">
-            {{ adressItem.Address }}
+        <ons-select class="addressSelect" [(ngModel)]="locationId" (change)="changeAddress($event)">
+          <option *ngFor="let addressItem of addressListDB" [value]="addressItem.LocationID">
+            {{ addressItem.Address }}
           </option>
         </ons-select>
       </ons-list-item>

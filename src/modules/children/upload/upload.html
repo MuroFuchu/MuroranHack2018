@@ -40,8 +40,8 @@
     </button>
 
     <!-- 写真を開く -->
-    <input id="openPhoto" style="display: none" accept="image" type="file" (change)="changePhoto($event)" [accept]="inputAccept">
-    <button id="openBtn" class="btn" onclick="document.getElementById('openPhoto').click();">
+    <input #openPhoto id="openPhoto" style="display: none" accept="image" type="file" (change)="changePhoto($event)" [accept]="inputAccept">
+    <button id="openBtn" class="btn" (click)="openFileDialog()">
       <i class="material-icons">insert_photo</i>
     </button>
 

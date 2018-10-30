@@ -133,6 +133,7 @@ export class Map {
       this.markers = [];
     }else{
       data.forEach(data => {
+        alert(data.Title);
         this.markers.push(
           { LocationID:data.LocationID,
             Title:data.Title,

@@ -69,7 +69,7 @@ export class Map {
   }
 
   // 現在地を取得する
-  getGeo() {
+  async getGeo() {
     var option = { timeout: 6000 }; //タイムアウト値(ミリ秒)
     var comp = this;
     navigator.geolocation.getCurrentPosition(

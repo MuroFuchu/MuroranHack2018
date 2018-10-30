@@ -69,7 +69,10 @@
       </array>
     </config-file>
     <config-file platform="ios" target="*-Info.plist" parent="NSLocationWhenInUseUsageDescription">
-      <string>コースのどの場所にいるのかを確認するために位置情報を取得します。</string>
+      <string>現在地周辺の登録地点を取得するために位置情報を取得します。</string>
+    </config-file>
+    <config-file platform="ios" target="*-Info.plist" parent="NSPhotoLibraryUsageDescription">
+      <string>写真をアップロードします。</string>
     </config-file>
   </platform>
   <platform name="android">

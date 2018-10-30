@@ -61,9 +61,9 @@ export class Upload {
 
   //#region 公開処理
 
-  public openFileDialog() {
-    console.log(this.openPhoto);
-    this.openPhoto.nativeElement.click();
+  public openFileDialog() {    
+    //this.openPhoto.nativeElement.click();
+    this.openPhoto.nativeElement.focus();
   }
 
   // ファイル選択ボタン

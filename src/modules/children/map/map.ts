@@ -140,8 +140,7 @@ export class Map {
             Address:data.Address,
             Latitude:data.Latitude,
             Longitude:data.Longitude,
-            iconUrl:this.markerPin1,
-            mLabel:{text:data.Title,fontSize:'10px',fontWeight:'700',color:'black',fontFamily:'メイリオ'}
+            iconUrl:this.markerPin1
           }
         );
       });
@@ -179,5 +178,4 @@ interface marker{
   Latitude:number;
   Longitude:number;
   iconUrl: string;
-  mLabel:MarkerLabel;
 }

@@ -2,6 +2,7 @@ import { Component,ViewChild } from '@angular/core';
 import { IndexedDbService } from '../../../services/IndexedDbService';
 import { OnsNavigator, Params } from 'ngx-onsenui';
 import { TimeTrip } from '../timeTrip/timeTrip';
+import { Menu } from '../menu/menu';
 
 import * as ons from 'onsenui';
 
@@ -13,6 +14,7 @@ import * as ons from 'onsenui';
   .footer {
     margin-top: 10px;
     width: 100%;
+    display:inline-block;
   }
 
   .btn {
@@ -22,9 +24,14 @@ import * as ons from 'onsenui';
     height: 35px;
     width: 35px;
     padding: 0px;
+    margin-left: 10px;
     margin-right: 10px;
+    text-align: center;
   }
 
+  .btn i {
+    font-size: 32px;
+  }
 
   `]
 })
@@ -99,6 +106,10 @@ export class Upload {
     });
   }
 
+  // ホームへ戻る
+  public goToHome(){
+    this._navigator.nativeElement.resetToPage(Menu);
+  }
 
 //#endregion
 

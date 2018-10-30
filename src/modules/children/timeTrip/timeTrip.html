@@ -20,7 +20,7 @@
     <!-- 写真エリア -->
     <ons-list-item style="width: 100%;">
       <ons-carousel #carousel 
-      　swipeable auto-scroll
+      　swipeable auto-scroll centered
         id="carousel"
         (postchange)="toPostChange($event)">
         <ons-carousel-item *ngFor="let item of photoInfoList;let i = index" (click)="openModal(i)">
@@ -29,12 +29,12 @@
         </ons-carousel-item>
       </ons-carousel>
     </ons-list-item>
-    
+
     <!-- 情報エリア -->
     <ons-list-item>
       <div align="center" style="width: 100%;">
         <div class="item title">{{photoInfo.Year}} 年</div>
-        <div class="item title">{{photoInfo.Title}}</div>
+        <div class="item title">{{location.Title}}</div>
         <div class="item" style="margin-top: 50px;">{{photoInfo.Comment}}</div>
         <div class="item">
           <ons-button (click)="goToUpload()" class="btn"><i class="material-icons">edit</i></ons-button>

@@ -133,7 +133,7 @@ export class Map {
       this.markers = [];
     }else{
       data.forEach(data => {
-        console.log(data.Title);
+        console.log(this);
         this.markers.push(
           { LocationID:data.LocationID,
             _Title:data.Title,
@@ -143,7 +143,7 @@ export class Map {
             iconUrl:this.markerPin1
           }
         );
-      },this);
+      });
     }
   }
 

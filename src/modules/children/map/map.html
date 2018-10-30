@@ -19,7 +19,7 @@
       fontWeight: '700'
     }
   ">
-    <agm-info-window>
+    <agm-info-window (infoWindowClose)="infoClosedEvent($event)">
       <table>
         <tr>
           <td>x座標：</td>

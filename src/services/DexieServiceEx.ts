@@ -12,4 +12,8 @@ export class DexieServiceEx extends DexieService {
         return this._db.table(table).where(index);
     }
 
+    deleteDataBase() {
+        this._db.delete();
+    }
+
 }

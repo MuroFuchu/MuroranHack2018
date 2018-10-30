@@ -7,8 +7,7 @@ import {IndexedDbService} from '../../../services/IndexedDbService';
 @Component({
   selector: "ons-page[title='registrationList']",
   template: require('./registrationList.html'),
-  styles: [
-  	`
+  styles: [`
     .registration_title{
       font-size:20px;
       font-weight:bold;
@@ -17,7 +16,10 @@ import {IndexedDbService} from '../../../services/IndexedDbService';
       font-size:14px; 
     }
     .dataPicArea {
-      width:70%;
+      width:100%;
+    }
+    .dataPicArea img {
+      text-align:center;
     }
     .dataMemoArea {
       width:30%;
@@ -32,9 +34,7 @@ import {IndexedDbService} from '../../../services/IndexedDbService';
       margin-left:5px;
       margin-right:20px;
       //font-size:10px;
-    }
-    `
-  ]
+    }`]
 })
 export class RegistrationList {
   RegistrationLists: RegistrationInfo[] = [];

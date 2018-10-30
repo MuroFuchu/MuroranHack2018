@@ -8,7 +8,12 @@
   <!-- 位置 -->
   <ons-list>
     <ons-list-item style="width: 100%;">
-      <p><i class="material-icons">home</i>{{ photoAddress }}</p>
+      <p>
+        <ons-button class="btn" (click)="goToHome()">
+          <i class="material-icons">home</i>
+        </ons-button>
+        {{ photoAddress }}
+      </p>
     </ons-list-item>
   </ons-list>
 
@@ -31,20 +36,20 @@
     </ons-list-item>
   </ons-list>
 
-  <!-- 保存 -->
+  <!-- フッター -->
   <div class="footer">
 
     <!-- 写真をアップロード -->
-    <button id="uploadBtn" class="btn" (click)="uploadPhotoConfirm();">
+    <ons-button id="uploadBtn" class="btn" (click)="uploadPhotoConfirm();">
       <i class="material-icons">cloud_upload</i>
-    </button>
+    </ons-button>
 
     <!-- 写真を開く -->
-    <input id="openPhoto" style="display: none" accept="image" type="file" (change)="changePhoto($event)" [accept]="inputAccept">
-    <button id="openBtn" class="btn" onclick="document.getElementById('openPhoto').click();">
+    
+    <ons-button id="openBtn" class="btn" (click)="openFileDialog()">
       <i class="material-icons">insert_photo</i>
-    </button>
-
+    </ons-button>
+    <input #openPhoto id="openPhoto" style="visibility: hidden;" accept="image" type="file" (change)="changePhoto($event)" [accept]="inputAccept">
   </div>
 
 </div>

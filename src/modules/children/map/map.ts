@@ -2,8 +2,8 @@ import * as ons from 'onsenui';
 import {Upload} from '../upload/upload';
 import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
-import {Component, NgZone, Injectable, OnInit} from '@angular/core';
-import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent, MarkerLabel } from '@agm/core';
+import {Component, NgZone, Injectable, OnInit, EventEmitter} from '@angular/core';
+import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 
 @Component({
@@ -42,7 +42,7 @@ import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭ�
   `]
 })
 
-export class Map {
+export class Map implements OnInit {
   locationID: string;
   address: string;
   presentLat: number;
@@ -88,6 +88,8 @@ export class Map {
           comp.presentLat =  42.319744;// 室蘭NISCO仕様
           comp.presentLng = 140.986007;// 室蘭NISCO仕様
           comp.changeCenter(comp.presentLat,comp.presentLng);
+          comp.getMapData(comp.centerLat,comp.centerLng);
+          comp.displayPin();
         }});
       },
       option
@@ -117,7 +119,9 @@ export class Map {
   //選択したマーカーの情報を取得する
   clickMarker(m: marker){
     this.locationID = m.LocationID;
+    this.selectedMarkerPin = this.markerPin1;//元々のアイコンは戻す
     m.iconUrl = this.markerPin2;
+    this.selectedMarkerPin = m.iconUrl;// 新しいアイコン情報を取得する
     this.changeCenter(m.Latitude,m.Longitude);
   }
   //指定された座標を中心にする
@@ -128,20 +132,19 @@ export class Map {
   // DBからデータを取得する
   async getMapData(lat:number, lng:number){
     var data = await this._indexedDbService.getMstLocationByRange(lat,lng);
+    //var data = await this._indexedDbService.getMstLocationInfo();
     if(data==null){
       console.log('データが取得できなかった');
       this.markers = [];
     }else{
       data.forEach(data => {
-        alert(Object.keys(data));
         this.markers.push(
           { LocationID:data.LocationID,
             Title:data.Title,
             Address:data.Address,
             Latitude:data.Latitude,
             Longitude:data.Longitude,
-            iconUrl:this.markerPin1,
-            mLabel:{text:data.Title,fontSize:'10px',fontWeight:'700',color:'black',fontFamily:'メイリオ'}
+            iconUrl:this.markerPin1
           }
         );
       });
@@ -179,5 +182,4 @@ interface marker{
   Latitude:number;
   Longitude:number;
   iconUrl: string;
-  mLabel:MarkerLabel;
 }

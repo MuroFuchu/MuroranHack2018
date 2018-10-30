@@ -6,6 +6,9 @@ import {Map} from '../map/map';
 import {RegistrationList} from '../registrationList/registrationList';
 import {Upload} from '../upload/upload';
 import { TimeTrip } from '../timeTrip/timeTrip';
+
+import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
+
 @Component({
   selector: "ons-page[title='menu']",
   template: require('./menu.html'),
@@ -53,7 +56,21 @@ import { TimeTrip } from '../timeTrip/timeTrip';
     ]
 })
 export class Menu {
-  constructor(private _navigator: OnsNavigator) {}
+  constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) {}
+
+  deleteDataBase() {
+    ons.notification.confirm({
+      title: "確認",
+      message: "データベースを削除しますか？",
+      cancelable: true,
+      callback: i => {
+        if (i == 1) {
+          this._indexedDbService.deleteDatabase();
+        }
+      }
+    });
+    
+  }
 
   goToTimeTrip() {
     this._navigator.nativeElement.pushPage(TimeTrip, {data: { LocationID : "4"}});

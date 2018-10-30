@@ -71,4 +71,8 @@ export class IndexedDbService {
     public async getTrnPhotoInfo() {
         return await this.dexieService.toArray(this.TrnPhotoInfo);
     }
+
+    public deleteDatabase() {
+        this.dexieService.deleteDataBase();
+    }
 }

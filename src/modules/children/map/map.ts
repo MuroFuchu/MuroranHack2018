@@ -3,7 +3,7 @@ import {Upload} from '../upload/upload';
 import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
 import {Component, NgZone, Injectable, OnInit} from '@angular/core';
-import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
+import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent, MarkerLabel } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 
 @Component({
@@ -133,14 +133,15 @@ export class Map {
       this.markers = [];
     }else{
       data.forEach(data => {
-        alert(data.Title);
+        alert(Object.keys(data));
         this.markers.push(
           { LocationID:data.LocationID,
             Title:data.Title,
             Address:data.Address,
             Latitude:data.Latitude,
             Longitude:data.Longitude,
-            iconUrl:this.markerPin1
+            iconUrl:this.markerPin1,
+            mLabel:{text:data.Title,fontSize:'10px',fontWeight:'700',color:'black',fontFamily:'メイリオ'}
           }
         );
       });
@@ -178,4 +179,5 @@ interface marker{
   Latitude:number;
   Longitude:number;
   iconUrl: string;
+  mLabel:MarkerLabel;
 }

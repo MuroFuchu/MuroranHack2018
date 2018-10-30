@@ -1,14 +1,28 @@
 <ons-toolbar>
+　 <div class="left"><ons-back-button>Back</ons-back-button></div>
   <div class="center">Registrations</div>
-  <div class="right"><ons-back-button>Back</ons-back-button></div>
 </ons-toolbar>
 <div class="content">
-  <ons-list style="height: 100%;">
-    <ons-list-item style="width: 100%;"  *ngFor="let Registration of RegistrationList" [value]="Registration.Title">
-      <!-- <img src="aaa" alt=""> -->
-      <span class="registration_title">{{ Registration.Title }}</span>
-      <br>
-      <span class="registration_comment">{{ Registration.Comment }}</span>
+  <ons-list>
+    <!-- <ons-list-item  *ngFor="let Registration of RegistrationLists" [value]="Registration.Title">
+      <div>
+          <img [src]="Registration.Bin" alt="Registration.Title" style="max-width: 90%;">
+      </div>
+      <div>
+          <span>{{ Registration.Title }}</span>
+      </div>
+      <div>
+          <span>{{ Registration.Comment }}</span>
+      </div>
+    </ons-list-item> -->
+    <!-- <ons-list-header>Thumbnails and titles</ons-list-header> -->
+    <ons-list-item modifier="chevron" tappable *ngFor="let Registration of RegistrationLists" [value]="Registration.Title">
+      <div class="left">
+          <img [src]="Registration.Bin" alt="Registration.Title">
+      </div>
+      <div class="center">
+        <span class="list-item__title">{{ Registration.Title }}</span><span class="list-item__subtitle">{{ Registration.Comment }}</span>
+      </div>
     </ons-list-item>
   </ons-list>
 </div>

@@ -134,6 +134,8 @@ export class Map {
     }else{
       data.forEach(data => {
         alert(data.Title);
+        alert("こもじ"+data.title);
+        alert(data.Address);
         this.markers.push(
           { LocationID:data.LocationID,
             Title:data.Title,

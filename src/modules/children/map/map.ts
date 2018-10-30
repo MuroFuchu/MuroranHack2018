@@ -143,7 +143,7 @@ export class Map {
             iconUrl:this.markerPin1
           }
         );
-      });
+      },this);
     }
   }
 

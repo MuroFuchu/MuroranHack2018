@@ -136,7 +136,7 @@ export class Map {
         console.log(data.Title);
         this.markers.push(
           { LocationID:data.LocationID,
-            Title:data.Title,
+            _Title:data.Title,
             Address:data.Address,
             Latitude:data.Latitude,
             Longitude:data.Longitude,
@@ -173,7 +173,7 @@ export class Map {
 // マーカー用インタフェース
 interface marker{
   LocationID:string;
-  Title:string;
+  _Title:string;
   Address:string;
   Latitude:number;
   Longitude:number;

@@ -133,10 +133,9 @@ export class Map {
       this.markers = [];
     }else{
       data.forEach(data => {
-        console.log(this);
         this.markers.push(
           { LocationID:data.LocationID,
-            _Title:data.Title,
+            Title:data.Title,
             Address:data.Address,
             Latitude:data.Latitude,
             Longitude:data.Longitude,
@@ -173,7 +172,7 @@ export class Map {
 // マーカー用インタフェース
 interface marker{
   LocationID:string;
-  _Title:string;
+  Title:string;
   Address:string;
   Latitude:number;
   Longitude:number;

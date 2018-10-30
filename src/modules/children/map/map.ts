@@ -84,7 +84,10 @@ export class Map {
         comp.displayPin();
       },
       function(){
-        ons.notification.alert({ message: '現在地を取得できるように設定してください。', title:'現在地が取得できません' });
+        ons.notification.alert({ message: '現在地を取得できるように設定してください。', title:'現在地が取得できません', callback:function(){
+          comp.presentLat =  42.319744;// 室蘭NISCO仕様
+          comp.presentLng = 140.986007;// 室蘭NISCO仕様
+        }});
       },
       option
     );

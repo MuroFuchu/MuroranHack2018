@@ -36,7 +36,7 @@ import * as ons from 'onsenui';
   `]
 })
 export class Upload {
-  @ViewChild('openPhoto') openPhoto : HTMLInputElement;
+  @ViewChild('openPhoto') openPhoto;
 
   photoLocationID: string = '';
   photoAddress: string = '';
@@ -62,7 +62,8 @@ export class Upload {
   //#region 公開処理
 
   public openFileDialog() {
-    this.openPhoto.click();
+    console.log(this.openPhoto);
+    this.openPhoto.nativeElement.click();
   }
 
   // ファイル選択ボタン

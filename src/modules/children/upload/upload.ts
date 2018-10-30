@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { IndexedDbService } from '../../../services/IndexedDbService';
 import { OnsNavigator, Params } from 'ngx-onsenui';
-
+import { TimeTrip } from '../timeTrip/timeTrip';
 
 import * as ons from 'onsenui';
 
 @Component({
-  selector: 'ons-page[upload]',
+  selector: "ons-page[title='upload']",
   template: require('./upload.html'),
   styles: [`
 
@@ -88,6 +88,14 @@ export class Upload {
       callback: i => {
         if (i == 1) {
           this.uploadPhoto();
+
+          var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
+
+          if(p.length > 0) {
+            this._navigator.nativeElement.popPage();
+          } else {
+            this._navigator.nativeElement.replacePage(TimeTrip, {data: {hoge: "fuga"}});
+          }
         }
       }
     });

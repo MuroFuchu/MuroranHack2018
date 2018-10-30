@@ -3,7 +3,7 @@ import * as ons from 'onsenui';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
 
 @Component({
-  selector: 'registrationList',
+  selector: "onspage[title='registrationList']",
   template: require('./registrationList.html'),
   styles: [
   	`

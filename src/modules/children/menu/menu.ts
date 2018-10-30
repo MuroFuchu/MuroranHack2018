@@ -7,7 +7,7 @@ import {RegistrationList} from '../registrationList/registrationList';
 import {Upload} from '../upload/upload';
 import { TimeTrip } from '../timeTrip/timeTrip';
 @Component({
-  selector: 'ons-page[menu]',
+  selector: "ons-page[title='menu']",
   template: require('./menu.html'),
   styles: [`
   

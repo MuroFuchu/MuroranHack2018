@@ -52,17 +52,22 @@ export class IndexedDbService {
 
     // 位置情報マスタ全件取得
     public async getMstLocationInfo(){
-        return await this.dexieService.toArray('MstLocationInfo');
+        return await this.dexieService.toArray(this.MstLocationInfo);
     }
 
     // 指定した座標付近のマスタを取得する
     public async getMstLocationByRange(latitude:number, longitude:number){
         var half:number = 0.015;
         var data = await this.dexieService
-            .where('MstLocationInfo','Latitude').between(latitude-half,latitude+half)
+            .where(this.MstLocationInfo,'Latitude').between(latitude-half,latitude+half)
             .and((data) => {
                 return longitude-half <= data.Longitude && data.Longitude <= longitude+half;
             })
         return data.toArray();
+    }
+
+    // 登録されている画像を全取得する
+    public async getTrnPhotoInfo() {
+        return await this.dexieService.toArray(this.TrnPhotoInfo);
     }
 }

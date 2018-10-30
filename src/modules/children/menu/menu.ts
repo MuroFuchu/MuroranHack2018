@@ -56,7 +56,7 @@ export class Menu {
   constructor(private _navigator: OnsNavigator) {}
 
   goToTimeTrip() {
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": 2018 , "LocationID":"a002"}});
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: { "LocationID" : "1"}});
   }
   
   goToMap() {

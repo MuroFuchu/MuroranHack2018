@@ -107,10 +107,10 @@ export class TimeTrip {
   @ViewChild('modal') modal;
  
   // テストデータ
-  addressListDB: Address[] = [
-    { LocationID: "a001", Address: "北海道登別市幌別町３－２０", Latitude: 10, longitude: 10 },
-    { LocationID: "a002", Address: "東京都府中市府中町１－９", Latitude: 20, longitude: 10 },  
-    { LocationID: "a003", Address: "岩手県宮古市五月町１－１", Latitude: 50, longitude: 10 },
+  addressListDB: LocationInfo[] = [
+    { LocationID: "a001", Address: "北海道登別市幌別町３－２０", Latitude: 10, Longitude: 10 },
+    { LocationID: "a002", Address: "東京都府中市府中町１－９", Latitude: 20, Longitude: 10 },  
+    { LocationID: "a003", Address: "岩手県宮古市五月町１－１", Latitude: 50, Longitude: 10 },
   ];
   // テストデータ
   infoListDB: TimeTripPhotoInfo[] = [
@@ -125,56 +125,86 @@ export class TimeTrip {
     { PhotoId: "p009", Year: 2088, LocationID: "a003", Title: "宮古市魚菜市場　開業100周年", Comment: "宮古市魚菜市場が開業100周年を迎えました。人類が食事をやめ必要なエネルギーのみをインポートする時代でも、昔と変わらず新鮮な食材を売り続けています。", Bin: "k8aa", LastUpdateDate: "20181025" },
   ];
  
-  address: Address = null;
+  // 引数
+  address: string = "";
   locationId: string = "";
-  infoList: TimeTripPhotoInfo[] = [];
-  info: TimeTripPhotoInfo = null;
-  targetYear: number = 0;
+  photoId: string = "";
 
+  targetYear: number = 0;
   activeIndex: number = 0;
   isImgErrList: boolean[] = [];
+
+  locationInfoList: LocationInfo[] = [];
+  location: LocationInfo = new LocationInfo();
+  photoInfoAllList: TimeTripPhotoInfo[] = [];
+  photoInfoList: TimeTripPhotoInfo[] = [];
+  photoInfo: TimeTripPhotoInfo = new TimeTripPhotoInfo();
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
  
   async ngOnInit() {
-    // 遷移元画面から位置情報マスタを取得
-    this.targetYear = this._params.data.year;
+    // 引数を取得
     this.locationId = this._params.data.LocationID;
-    this.address = this.addressListDB.find(f => f.LocationID == this.locationId);
+    this.address = this._params.data.Address;
+    this.photoId = this._params.data.PhotoID;
+
+    // 位置情報リスト取得
+    this.locationInfoList = await this._indexedDbService.getMstLocationInfo();
+    if(this.locationInfoList){
+      this.location = this.locationInfoList.find(f => f.LocationID == this.locationId);
+    }
+
+    // 時系列写真情報リスト取得
+    this.photoInfoAllList = await this._indexedDbService.getTrnPhotoInfo();
+    // console.log(this.photoInfoList);
+    // if(this.photoInfoList){
+    //   this.photoInfoList = this.photoInfoList.filter(f => f.LocationID == this.locationId);
+    //   this.photoInfo = this.photoInfoList.find(f => f.PhotoId == this.photoId);
+    // }
 
     // timeTrip情報を設定
-    this.setInfoList(this.address);
+    this.setInfoList(this.location);
 
     // carouselの初期位置設定
-    this.activeIndex = this.infoList.findIndex(s => s.PhotoId == this.info.PhotoId);
+    var index = this.photoInfoList.findIndex(s => s.PhotoId == this.photoInfo.PhotoId);
+    this.activeIndex = index ? index : 0;
     this.carousel.nativeElement.setAttribute("initial-index", this.activeIndex.toString());
 
     // テストで画像を取得してみる
-    var res = await this._indexedDbService.getTrnPhotoInfoByKey("1");
-    this.infoListDB[0].Bin = res.Bin;
-    this.infoListDB[1].Bin = res.Bin;
-    this.infoListDB[2].Bin = res.Bin;
+    // var res = await this._indexedDbService.getTrnPhotoInfoByKey("1");
+    // this.infoListDB[0].Bin = res.Bin;
+    // this.infoListDB[1].Bin = res.Bin;
+    // this.infoListDB[2].Bin = res.Bin;
   }
 
-  toPostChane(event) {
-    this.info = this.infoList[event.activeIndex];
+  toPostChange(event) {
+    this.photoInfo = this.photoInfoList[event.activeIndex];
   }
 
   changeAddress(event) {
-    this.address = this.addressListDB.find(f => f.LocationID == event.target.value);
-    this.setInfoList(this.address);
+    this.location = this.addressListDB.find(f => f.LocationID == event.target.value);
+    this.setInfoList(this.location);
     this.reloadCarousel();
   }
 
-  setInfoList(address: Address) {
-    this.infoList = this.infoListDB.filter(f => f.LocationID == address.LocationID);
-    var array = new Array(this.infoList.length);
+  setInfoList(info: LocationInfo) {
+    // this.photoInfoList = this.infoListDB.filter(f => f.LocationID == info.LocationID);
+    if(this.photoInfoAllList){
+      this.photoInfoList = this.photoInfoAllList.filter(f => f.LocationID == info.LocationID);
+    }
+
+    if(this.photoInfoList && this.photoInfoList.length > 0){
+      var tempPhotoInfo = this.photoInfoList.find(f => f.PhotoId == this.photoId);
+      this.photoInfo = tempPhotoInfo ? tempPhotoInfo : this.photoInfoList[0];
+    }
+
+    var array = new Array(this.photoInfoList.length);
     this.isImgErrList = this.isImgErrList.fill(false, 0, array.length);
     
-    this.info = this.infoList.find(f => f.Year == this.targetYear);
-    if (!this.info) {
-      this.info = this.infoList[0];
-    }
+    // this.photoInfo = this.photoInfoList.find(f => f.Year == this.targetYear);
+    // if (!this.photoInfo) {
+    //   this.photoInfo = this.photoInfoList[0];
+    // }
   }
 
   openModal(index: number) {
@@ -196,18 +226,18 @@ export class TimeTrip {
   }
 
   private reloadCarousel() {
-    var index = this.infoList.findIndex(s => s.PhotoId == this.info.PhotoId);
+    var index = this.photoInfoList.findIndex(s => s.PhotoId == this.photoInfo.PhotoId);
     this.carousel.nativeElement.refresh();
     this.carousel.nativeElement.setActiveIndex(index);
   }
 
 }
  
-class Address {
+class LocationInfo {
   LocationID: string;
   Address: string;
   Latitude: number;
-  longitude: number;
+  Longitude: number;
 }
 
 class TimeTripPhotoInfo {

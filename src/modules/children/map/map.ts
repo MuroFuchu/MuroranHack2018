@@ -44,6 +44,7 @@ import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭ�
 
 export class Map {
   locationID: string;
+  address: string;
   presentLat: number;
   presentLng: number;
   centerLat:number;
@@ -145,7 +146,7 @@ export class Map {
     {
       this.alertNonSelectPin();
     }else{
-      this._navigator.nativeElement.pushPage(TimeTrip, {data: {"year": undefined , "LocationID":this.locationID}});
+      this._navigator.nativeElement.pushPage(TimeTrip, { data: { "LocationID": this.locationID } });
     }
   }
   // アップロード画面へ遷移
@@ -154,7 +155,7 @@ export class Map {
     {
       this.alertNonSelectPin();
     }else{
-      this._navigator.nativeElement.pushPage(Upload, {data: {"year": undefined , "LocationID":this.locationID}});
+      this._navigator.nativeElement.pushPage(Upload, { data: { "LocationID": this.locationID, "Address": this.address } });
     }
   }
   // アラート類

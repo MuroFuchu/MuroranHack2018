@@ -1,10 +1,11 @@
 import {Injectable} from '@angular/core';
 import {DexieService} from 'ngx-dexie';
+import {DexieServiceEx} from './DexieServiceEx';
 
 @Injectable()
 export class IndexedDbService {
  // https://www.npmjs.com/package/ngx-dexie
-    constructor(private dexieService: DexieService) {}
+    constructor(private dexieService: DexieServiceEx) {}
 
     private readonly flg : string = '1';
     private readonly CheakInitData : string = 'CheakInitData';
@@ -49,9 +50,19 @@ export class IndexedDbService {
         return data;
     }
 
+    // 位置情報マスタ全件取得
     public async getMstLocationInfo(){
-        var data = null;
-        data = await this.dexieService.toArray('MstLocationInfo');
-        return data;
+        return await this.dexieService.toArray('MstLocationInfo');
+    }
+
+    // 指定した座標付近のマスタを取得する
+    public async getMstLocationByRange(latitude:number, longitude:number){
+        var half:number = 0.015;
+        var data = await this.dexieService
+            .where('MstLocationInfo','Latitude').between(latitude-half,latitude+half)
+            .and((data) => {
+                return longitude-half <= data.Longitude && data.Longitude <= longitude+half;
+            })
+        return data.toArray();
     }
 }

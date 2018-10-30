@@ -70,7 +70,7 @@ export class RegistrationList {
 
   // 写真をタップした時のイベント
   clickPhoto(_locatonID:string, _photoId:number){
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"PhotoId": _photoId , "LocationID":_locatonID}});
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {PhotoId: _photoId , LocationID:_locatonID}});
     console.log('クリックしたLocationID' + _locatonID);
     console.log('クリックしたPhotoId' + _photoId);
   }

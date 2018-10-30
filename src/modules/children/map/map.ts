@@ -2,7 +2,7 @@ import * as ons from 'onsenui';
 import {Upload} from '../upload/upload';
 import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
-import {Component, NgZone, Injectable} from '@angular/core';
+import {Component, NgZone, Injectable, OnInit} from '@angular/core';
 import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 
@@ -133,6 +133,7 @@ export class Map {
       this.markers = [];
     }else{
       data.forEach(data => {
+        console.log(data.Title);
         this.markers.push(
           { LocationID:data.LocationID,
             Title:data.Title,

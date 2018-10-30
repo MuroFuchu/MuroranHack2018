@@ -1,9 +1,11 @@
 import {Component} from '@angular/core';
 import * as ons from 'onsenui';
+import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' 
+import {IndexedDbService} from '../../../services/IndexedDbService';
 
 @Component({
-  selector: 'registrationList',
+  selector: "ons-page[title='registrationList']",
   template: require('./registrationList.html'),
   styles: [
   	`
@@ -12,31 +14,74 @@ import {OnsNavigator,OnsenModule} from 'ngx-onsenui'
       font-weight:bold;
     }
     .registration_comment{
-      font-size:14px;
-      
+      font-size:14px; 
+    }
+    .dataPicArea {
+      width:70%;
+    }
+    .dataMemoArea {
+      width:30%;
+    }
+    .dataMemoArea-title {
+      margin-left:5px;
+      margin-right:20px;
+      //font-size:16px;
+      font-weight:700;
+    }
+    .dataMemoArea-text {
+      margin-left:5px;
+      margin-right:20px;
+      //font-size:10px;
     }
     `
   ]
 })
 export class RegistrationList {
-  constructor(private _navigator: OnsNavigator) {}
+  RegistrationLists: RegistrationInfo[] = [];
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService) {
+  }
+
+  async ngOnInit() {
+    this.getRegistList();
+  }
   
-  RegistrationList: RegistrationInfo[] = [
-    { PhotoId: "p001", LocationID: "a001", Title: "幌別駅前通り 1984.", Comment: "北口駅前の様子。情調ある風景が感慨を感じさせる。"},
-    { PhotoId: "p002", LocationID: "a001", Title: "幌別駅前通り 2018.", Comment: "北口駅前の様子。無機質な町並が現実を実感させる。" },
-    { PhotoId: "p003", LocationID: "a001", Title: "幌別駅前通り 2050.", Comment: "北口駅前の様子。人間もペットも電子になりました。" },
-    { PhotoId: "p004", LocationID: "a002", Title: "京王府中一丁目ビル", Comment: "日鋼情報システム(株)が府中市Jタワーより移転した年。" },
-    { PhotoId: "p005", LocationID: "a002", Title: "京王府中一丁目ビル", Comment: "日鋼情報システム(株)が本社JSWに吸収合併されることが決定した年。" },
-    { PhotoId: "p006", LocationID: "a002", Title: "京王府中一丁目ビル", Comment: "本社JSWが事実上日本を支配した年。"},
-    { PhotoId: "p007", LocationID: "a003", Title: "宮古市魚菜市場　開業", Comment: "宮古市魚菜市場が開業しました。「宮古市をみんなで盛り上げよう」というモットーのもと地元自治体と地元漁師農家の協力によって営業運営される市場です。" },
-    { PhotoId: "p008", LocationID: "a003", Title: "宮古市魚菜市場　開業30周年", Comment: "宮古市魚菜市場が開業30周年を迎えました。日本有数の漁場である三陸沖から水揚げされる魚介類と、地元農家が愛情をこめて育てた野菜がずらりと並びます。" },
-    { PhotoId: "p009", LocationID: "a003", Title: "宮古市魚菜市場　開業100周年", Comment: "宮古市魚菜市場が開業100周年を迎えました。人類が食事をやめ必要なエネルギーのみをインポートする時代でも、昔と変わらず新鮮な食材を売り続けています。"},
-  ];
+  async getRegistList(){
+    var data = await this._indexedDbService.getTrnPhotoInfo();
+    if(data == null)
+    {
+      console.log('データを取得できなかった');
+      data = [];
+    }else{
+      data.forEach(registList => {
+        this.RegistrationLists.push(
+          {
+            PhotoId:registList.PhotoID,
+            Year:registList.Year,
+            LocationID:registList.LocationID,
+            Title:registList.Title,
+            Comment: registList.Comment,
+            Bin: registList.Bin,
+            LastUpdateDate: registList.LastUpdateDate
+          }
+        )
+      });
+    }
+  }
+
+  // 写真をタップした時のイベント
+  clickPhoto(_locatonID:string, _photoId:number){
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {"PhotoId": _photoId , "LocationID":_locatonID}});
+    console.log('クリックしたLocationID' + _locatonID);
+    console.log('クリックしたPhotoId' + _photoId);
+  }
 }
 
 class RegistrationInfo {
-  PhotoId: string;
+  PhotoId: number;
+  Year: number;
   LocationID: string;
   Title: string;
   Comment: string;
+  Bin: string;
+  LastUpdateDate: string;
 }

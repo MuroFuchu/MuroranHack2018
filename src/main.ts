@@ -24,14 +24,15 @@ import { TimeTrip } from './modules/children/timeTrip/timeTrip';
 
 // Service
 import { IndexedDbService } from './services/IndexedDbService';
+import {DexieServiceEx} from './services/DexieServiceEx';
 import { GetJsonService } from './services/GetJsonService';
  
 const config: DexieConfig = {
   databaseName: 'TimeTripPhotoGallery',//your database name here
   schema: {
     CheakInitData: '++ID',
-    TrnPhotoInfo: '++PhotoID,Year,LocationID,Title,Comment,Bin,LastUpdateDateTime',
-    MstLocationInfo: '++LocationID,Address,Latitude,Longitude'
+    TrnPhotoInfo: '++PhotoID,Year,LocationID,Comment,Bin,LastUpdateDateTime',
+    MstLocationInfo: '++LocationID,Title,Address,Latitude,Longitude'
   } // any schema of your choice
 };
 
@@ -80,6 +81,7 @@ if (process.env.NODE_ENV === 'production') {
      ],
      providers: [
         IndexedDbService,
+        DexieServiceEx,
         GetJsonService,
      ],
      schemas: [

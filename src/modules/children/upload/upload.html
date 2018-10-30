@@ -1,55 +1,50 @@
-<ons-page>
-  <ons-toolbar>
-    <div class="center">写真アップロード画面2</div>
-  </ons-toolbar>
+<ons-toolbar>
+  <div class="left"><ons-back-button>Back</ons-back-button></div>
+  <div class="center">写真アップロード</div>
+</ons-toolbar>
 
-  <div class="content">
+<div class="content">
 
-    <!-- 位置 -->
-    <div style="vertical-align: -webkit-baseline-middle">
-      <p><i class="material-icons">home</i>{{pictAddress}}</p>
-    </div>
+  <!-- 位置 -->
+  <ons-list>
+    <ons-list-item style="width: 100%;">
+      <p><i class="material-icons">home</i>{{ photoAddress }}</p>
+    </ons-list-item>
+  </ons-list>
 
-    <!-- 写真 -->
-    <div id="previewArea">
-    </div>
+  <!-- 写真 -->
+  <div id="previewArea">
+    <img #photoPreview id="photoPreview" style="width: 300px; height: auto; text-align: center">
+  </div>
 
-    <!-- 写真の情報 -->
-    <ons-list>
-      <ons-list-header>いつの写真？</ons-list-header>
-      <ons-list-item>
-        <ons-input type="number" [(value)]="pictYear"></ons-input>
-      </ons-list-item>
-      <ons-list-header>写真のタイトルは？</ons-list-header>
-      <ons-list-item>
-        <ons-input type="text" [(value)]="pictTitle"></ons-input>
-      </ons-list-item>
-      <ons-list-header>コメントをどうぞ</ons-list-header>
-      <ons-list-item>
-        <ons-input type="text" [(value)]="pictComment"></ons-input>
-      </ons-list-item>
-    </ons-list>
+  <!-- 写真の情報 -->
+  <ons-list>
+    <!-- 年 -->
+    <ons-list-header>いつの写真？</ons-list-header>
+    <ons-list-item>
+      <ons-input type="number" min="0" max="9999" style="width: 130px" [(value)]="photoYear"></ons-input>
+    </ons-list-item>
+    <!-- コメント -->
+    <ons-list-header>写真のコメント</ons-list-header>
+    <ons-list-item>
+      <ons-input type="textarea" style="width: 100%" [(value)]="photoComment"></ons-input>
+    </ons-list-item>
+  </ons-list>
 
-    <!-- 保存 -->
-    <div id="uploadBtnArea">
+  <!-- 保存 -->
+  <div class="footer">
 
-      <button id="uploadBtn">
-        <i class="material-icons">cloud_upload</i>
-      </button>
-
-    </div>
+    <!-- 写真をアップロード -->
+    <button id="uploadBtn" class="btn" (click)="uploadPhotoConfirm();">
+      <i class="material-icons">cloud_upload</i>
+    </button>
 
     <!-- 写真を開く -->
-    <div id="openBtnArea">
-
-      <input id="openPhoto" type="file" style="display: none" (change)="changePhoto($event)">
-      <button id="openBtn" onclick="document.getElementById('openPhoto').click();">
-        <i class="material-icons">insert_photo</i>
-      </button>
-
-      </div>
-
-
+    <input id="openPhoto" style="display: none" accept="image" type="file" (change)="changePhoto($event)" [accept]="inputAccept">
+    <button id="openBtn" class="btn" onclick="document.getElementById('openPhoto').click();">
+      <i class="material-icons">insert_photo</i>
+    </button>
 
   </div>
-</ons-page>
+
+</div>

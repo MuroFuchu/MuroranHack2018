@@ -1,29 +1,27 @@
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-<ons-page>
-  <ons-toolbar>
-    <div class="center">Menu</div>
-  </ons-toolbar>
-  <div class="content">
-    <div class="menu_title">
-      Time Trip
-      <br>
-      Photo Gallery
-    </div>
-    <div id="message">{{msg}}</div>
-    <div style="text-align: center; margin: 10px">
-      <ons-button (click)="goToTimeTrip(navi)" class="menu_btn_Time_Trip">
-        <i class="material-icons">restore</i><br>Time Trip
-      </ons-button>
-      <ons-button (click)="goToRegistrationList(navi)" class="menu_btn_Registrations">
-        <i class="material-icons">view_list</i><br>Registrations
-      </ons-button>
-      <br>
-      <ons-button (click)="goToMap(navi)"  class="menu_btn_map">
-         <i class="material-icons">place</i><br>Map
-      </ons-button>
-      <ons-button (click)="goToUpload(navi)" class="menu_btn_Upload">
-        <i class="material-icons">arrow_upward</i><br>Upload
-      </ons-button>
-    </div>
+
+<ons-toolbar>
+  <div class="center">Menu</div>
+</ons-toolbar>
+<div class="content">
+  <div class="menu_title">
+    Time Trip
+    <br>
+    Photo Gallery
   </div>
-</ons-page>
+  <div id="message">{{msg}}</div>
+  <div style="text-align: center; margin: 10px">
+    <ons-button (click)="goToTimeTrip(navi)" class="menu_btn_Time_Trip">
+      <i class="material-icons">restore</i><br>Time Trip
+    </ons-button>
+    <ons-button (click)="goToRegistrationList(navi)" class="menu_btn_Registrations">
+      <i class="material-icons">view_list</i><br>Registrations
+    </ons-button>
+    <br>
+    <ons-button (click)="goToMap(navi)"  class="menu_btn_map">
+        <i class="material-icons">place</i><br>Map
+    </ons-button>
+    <ons-button (click)="goToUpload(navi)" class="menu_btn_Upload">
+      <i class="material-icons">arrow_upward</i><br>Upload
+    </ons-button>
+  </div>
+</div>

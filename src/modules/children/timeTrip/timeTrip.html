@@ -19,6 +19,9 @@
 
     <!-- 写真エリア -->
     <ons-list-item style="width: 100%;">
+      <div (click)="prev()" style="z-index: 100;" style="width: 35px;">
+        <i [style.display]="isPrev() ? 'block' : 'none'" class="material-icons">arrow_back</i>
+      </div>
       <ons-carousel #carousel 
       　swipeable auto-scroll centered
         id="carousel"
@@ -28,12 +31,15 @@
           <div *ngIf="isImgErrList[i]" class="carousel_erricon"><i class="material-icons">cancel</i></div>
         </ons-carousel-item>
       </ons-carousel>
+      <div (click)="next()" style="z-index: 100;" style="width: 35px;">
+        <i [style.display]="isNext() ? 'block' : 'none'" class="material-icons">arrow_forward</i>
+      </div>
     </ons-list-item>
 
     <!-- 情報エリア -->
     <ons-list-item>
       <div align="center" style="width: 100%;">
-        <div class="item title">{{photoInfo.Year}} 年</div>
+        <div *ngIf="photoInfo" class="item title">{{photoInfo.Year}} 年</div>
         <div class="item title">{{location.Title}}</div>
         <div class="item" style="margin-top: 50px;">{{photoInfo.Comment}}</div>
         <div class="item">

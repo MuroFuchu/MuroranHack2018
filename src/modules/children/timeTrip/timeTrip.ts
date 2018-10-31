@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, ChangeDetectorRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Menu } from '../menu/menu';
@@ -114,8 +114,11 @@ export class TimeTrip {
   photoInfoList: TimeTripPhotoInfo[] = [];
   location: LocationInfo = new LocationInfo();
   baseDistance: number = 0;
+  activeIndex: number = 0;
 
-  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
+  isVisbile: boolean = false;
+
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params, private _changeDetectorRef: ChangeDetectorRef) {}
 
   @HostListener('show')
   timeTripShow(e) {
@@ -124,6 +127,7 @@ export class TimeTrip {
 
   async init() {
     // 引数を取得
+    console.log(this._params);
     var locationId = this._params.data.LocationID;
     var photoId = this._params.data.PhotoID;
 
@@ -136,12 +140,23 @@ export class TimeTrip {
     // 写真情報取得
     await this.setPhotoInfo(locationId, photoId);
 
+    // onsUI読み込み完了後処理
+    var comp = this;
+    ons.ready(() => {
+      // カルーセルの初期設定
+      // comp.initCrousel(comp, photoId);
+      var index = comp.photoInfoList.findIndex(s => s.PhotoID == photoId);
+      console.log(index);
+      var activeIndex = index == -1 ? 0 : index;
+      comp.carousel.nativeElement.refresh();
+      comp.carousel.nativeElement.setActiveIndex(activeIndex);
+    });
+
     // 読み込めなかった写真リスト初期化
     var array = new Array(this.photoInfoList.length);
     this.isImgErrList = this.isImgErrList.fill(false, 0, array.length);
 
-    // カルーセルの初期設定
-    this.initCrousel();
+    this.isVisbile = true;
 
     // var comp = this;
     // this.modal.nativeElement.on("pinchin", (event) => {
@@ -158,7 +173,6 @@ export class TimeTrip {
     //   comp.modal.nativeElement.style.zoom = comp.getDistance(event);
     // });
 
-    console.log(this._params);
     // console.log(this.locationInfoList);
     // console.log(this.location);
     // console.log(this.photoInfoAllList);
@@ -168,7 +182,24 @@ export class TimeTrip {
 
   // カルーセル切り替え時
   toPostChange(event) {
+    this.activeIndex = event.activeIndex;
     this.photoInfo = this.photoInfoList[event.activeIndex];
+  }
+
+  isPrev(): boolean{
+    return this.activeIndex != 0;
+  }
+
+  isNext(): boolean{
+    return this.activeIndex != this.photoInfoList.length - 1;
+  }
+
+  prev(){
+    this.carousel.nativeElement.prev();
+  }
+
+  next(){
+    this.carousel.nativeElement.next();
   }
   
   // メニューに遷移
@@ -189,12 +220,18 @@ export class TimeTrip {
   }
 
   // カルーセルの初期設定
-  private initCrousel(){
+  private initCrousel(comp: TimeTrip,photoID: number){
     // カルーセルの初期位置設定
-    var index = this.photoInfoList.findIndex(s => s.PhotoID == this.photoInfo.PhotoID);
+    var index = comp.photoInfoList.findIndex(s => s.PhotoID == photoID);
+    console.log(index);
     var activeIndex = index == -1 ? 0 : index;
-    this.carousel.nativeElement.setAttribute("initial-index", activeIndex.toString());
-    this.carousel.nativeElement.refresh();
+    comp.carousel.nativeElement.refresh();
+    comp.carousel.nativeElement.setActiveIndex(activeIndex);
+    //this.carousel.nativeElement.setAttribute("initial-index", activeIndex.toString());
+  }
+
+  setindex(n: number){
+    this.carousel.nativeElement.setActiveIndex(n);
   }
 
   // 写真情報設定

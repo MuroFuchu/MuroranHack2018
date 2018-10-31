@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, HostListener, ChangeDetectorRef, AfterViewChecked } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener, AfterViewChecked } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Menu } from '../menu/menu';
@@ -119,10 +119,21 @@ export class TimeTrip {
   photoId: number = 0;
   check: boolean = true;
 
-  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params, private _changeDetectorRef: ChangeDetectorRef) {}
+  isConstructor: boolean = false;
+
+  params = null;
+
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {
+    this.isConstructor = true;
+  }
 
   @HostListener('show')
   timeTripShow(e) {
+    if(this.isConstructor){
+      this.params = this._params.data;
+    }else{
+      this.params = this._navigator.nativeElement.topPage.data;
+    }
     this.init();
   }
 
@@ -132,17 +143,15 @@ export class TimeTrip {
       var activeIndex = index == -1 ? 0 : index;
       this.carousel.nativeElement.setActiveIndex(activeIndex, { animation: "none" });
 
-      console.log(this.photoInfoList);
-      console.log(this.activeIndex);
       this.check = false;
     }
   }
 
   async init() {
     // 引数を取得
-    console.log(this._params);
-    var locationId = this._params.data.LocationID;
-    this.photoId = this._params.data.PhotoID;
+    // console.log(this.params);
+    var locationId = this.params.LocationID;
+    this.photoId = this.params.PhotoID;
     
     this.photoInfoList = [];
     this.check = true;
@@ -222,6 +231,7 @@ export class TimeTrip {
 
   // uploadに遷移
   goToUpload() {
+    this.isConstructor = false;
     this._navigator.nativeElement.pushPage(Upload, {data: { LocationID: this.location.LocationID, Address: this.location.Address }});
   }
 

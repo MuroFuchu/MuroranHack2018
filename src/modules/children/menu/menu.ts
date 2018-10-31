@@ -75,8 +75,13 @@ export class Menu {
     
   }
 
-  goToTimeTrip() {
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: { LocationID : "4"}});
+  async goToTimeTrip() {
+    var min = 1 ;
+    var max = await this._indexedDbService.countLocationInfo();
+    
+    var r = Math.floor( Math.random() * (max + 1 - min) ) + min ;
+
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: { "LocationID" : r}});
   }
   
   goToMap() {

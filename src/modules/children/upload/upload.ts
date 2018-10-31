@@ -68,6 +68,7 @@ export class Upload {
 
   //#region 公開処理
 
+
   // ファイル選択ボタン
   public changePhoto(event)
   {

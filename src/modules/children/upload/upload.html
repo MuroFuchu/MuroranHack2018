@@ -45,7 +45,7 @@
     </label>
 
     <!-- 写真を開く -->
-    <label class="btn">
+    <label class="btn" for="openPhoto">
         <i class="material-icons">insert_photo</i>
         <input #openPhoto id="openPhoto" style="visibility: hidden;" accept="image" type="file" (change)="changePhoto($event)" [accept]="inputAccept">
     </label>

@@ -24,8 +24,9 @@ import { TimeTrip } from './modules/children/timeTrip/timeTrip';
 
 // Service
 import { IndexedDbService } from './services/IndexedDbService';
-import {DexieServiceEx} from './services/DexieServiceEx';
+import { DexieServiceEx } from './services/DexieServiceEx';
 import { GetJsonService } from './services/GetJsonService';
+import { GoogleMapsAPIWrapperEx } from './services/GoogleMapsAPIWrapperEx';
  
 const config: DexieConfig = {
   databaseName: 'TimeTripPhotoGallery',//your database name here
@@ -83,6 +84,7 @@ if (process.env.NODE_ENV === 'production') {
         IndexedDbService,
         DexieServiceEx,
         GetJsonService,
+        GoogleMapsAPIWrapperEx,
      ],
      schemas: [
          CUSTOM_ELEMENTS_SCHEMA,

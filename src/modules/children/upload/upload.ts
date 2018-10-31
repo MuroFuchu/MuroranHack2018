@@ -1,4 +1,4 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { IndexedDbService } from '../../../services/IndexedDbService';
 import { OnsNavigator, Params } from 'ngx-onsenui';
 import { TimeTrip } from '../timeTrip/timeTrip';
@@ -10,6 +10,16 @@ import * as ons from 'onsenui';
   selector: "ons-page[title='upload']",
   template: require('./upload.html'),
   styles: [`
+
+  #previewArea {
+    text-align: center;
+  }
+
+  #photoPreview {
+    width: auto;
+    max-height: 200px;
+    vertical-align: middle    
+  }
 
   .footer {
     margin-top: 10px;
@@ -36,7 +46,6 @@ import * as ons from 'onsenui';
   `]
 })
 export class Upload {
-  @ViewChild('openPhoto') openPhoto;
 
   photoLocationID: string = '';
   photoAddress: string = '';
@@ -54,6 +63,9 @@ export class Upload {
     this.photoLocationID = this._params.data.LocationID;
     this.photoAddress = this._params.data.Address;
 
+    // 年初期値
+    this.photoYear = new Date().getFullYear();
+
     // Element情報設定
     this.inputAccept = "image/*";
 
@@ -61,10 +73,6 @@ export class Upload {
 
   //#region 公開処理
 
-  public openFileDialog() {    
-    this.openPhoto.nativeElement.click();
-    //this.openPhoto.nativeElement.focus();
-  }
 
   // ファイル選択ボタン
   public changePhoto(event)
@@ -147,9 +155,10 @@ export class Upload {
   private pageChange() {
     var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
     if(p.length > 0) {
+      // TimeTripページ経由であれば、１つ前の画面（TimeTripページ）に戻る
       this._navigator.nativeElement.popPage();
     } else {
-      // TimeTripページ経由であれば、TimeTripページに戻る
+      // TimeTripページを経由していなければ、新たにTimeTripページを開く
       this._navigator.nativeElement.replacePage(TimeTrip, {data: { LocationID: this.photoLocationID, PhotoID: this.photoID}});
     }
   }

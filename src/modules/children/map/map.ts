@@ -57,8 +57,9 @@ export class Map implements OnInit {
   apiWrapper:GoogleMapsAPIWrapper;
   map;
   selectedMarkerPin: string;
-  markerPin1: string = require('../../../../contents/icons/pin_normal.svg');//マーカーピンのアイコンURL
-  markerPin2: string = require('../../../../contents/icons/pin_free.svg');//マーカーピンのアイコンURL
+  markerPinNormal: string = require('../../../../contents/icons/pin_normal.svg');//マーカーピンのアイコンURL
+  markerPinSelected: string = require('../../../../contents/icons/pin_free.svg');//マーカーピンのアイコンURL
+  nowPlacePin: string = require('../../../../contents/icons/pin_nowPlace.svg');//マーカーピンのアイコンURL
   iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
   iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
 
@@ -119,8 +120,8 @@ export class Map implements OnInit {
   //選択したマーカーの情報を取得する
   clickMarker(m: marker){
     this.locationID = m.LocationID;
-    this.selectedMarkerPin = this.markerPin1;//元々のアイコンは戻す
-    m.iconUrl = this.markerPin2;
+    this.resetPinMarker();//ピンマーカーをすべて初期化する
+    m.iconUrl = this.markerPinSelected;
     this.selectedMarkerPin = m.iconUrl;// 新しいアイコン情報を取得する
     this.changeCenter(m.Latitude,m.Longitude);
   }
@@ -128,6 +129,15 @@ export class Map implements OnInit {
   changeCenter(lat:number, lng:number){
     this.centerLat = lat;
     this.centerLng = lng;
+  }
+  //ピンのマーカーを初期化する
+  resetPinMarker(){
+    var pin = this;
+    pin.markers.filter(function(value){
+      if(value.iconUrl === pin.markerPinSelected){
+        value.iconUrl = pin.markerPinNormal;
+      }
+    });    
   }
   // DBからデータを取得する
   async getMapData(lat:number, lng:number){
@@ -144,7 +154,7 @@ export class Map implements OnInit {
             Address:data.Address,
             Latitude:data.Latitude,
             Longitude:data.Longitude,
-            iconUrl:this.markerPin1
+            iconUrl:this.markerPinNormal
           }
         );
       });

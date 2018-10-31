@@ -1,4 +1,4 @@
-import { OnInit, Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Menu } from '../menu/menu';
@@ -138,6 +138,7 @@ export class TimeTrip {
   location: LocationInfo = new LocationInfo();
   photoInfoAllList: TimeTripPhotoInfo[] = [];
   photoInfoList: TimeTripPhotoInfo[] = [];
+<<<<<<< HEAD
   photoInfo: TimeTripPhotoInfo = new TimeTripPhotoInfo();
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {
@@ -148,6 +149,19 @@ export class TimeTrip {
  
   async ngOnInit() {
     alert('初期化');
+=======
+  location: LocationInfo = new LocationInfo();
+  
+
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
+
+  @HostListener('show')
+  timeTripShow(e){
+  this.init();
+  }
+
+  async init() {
+>>>>>>> 39b39cc8b564959e377c024e81bf74e4a4575cc1
     // 引数を取得
     this.locationId = this._params.data.LocationID;
     this.address = this._params.data.Address;

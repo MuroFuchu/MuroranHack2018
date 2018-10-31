@@ -55,7 +55,7 @@ export class RegistrationList {
       data.forEach(registList => {
         this.RegistrationLists.push(
           {
-            PhotoId:registList.PhotoID,
+            PhotoID:registList.PhotoID,
             Year:registList.Year,
             LocationID:registList.LocationID,
             Title:registList.Title,
@@ -70,14 +70,14 @@ export class RegistrationList {
 
   // 写真をタップした時のイベント
   clickPhoto(_locatonID:string, _photoId:number){
-    this._navigator.nativeElement.pushPage(TimeTrip, {data: {PhotoId: _photoId , LocationID:_locatonID}});
+    this._navigator.nativeElement.pushPage(TimeTrip, {data: {PhotoID: _photoId , LocationID:_locatonID}});
     console.log('クリックしたLocationID' + _locatonID);
     console.log('クリックしたPhotoId' + _photoId);
   }
 }
 
 class RegistrationInfo {
-  PhotoId: number;
+  PhotoID: number;
   Year: number;
   LocationID: string;
   Title: string;

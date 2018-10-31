@@ -8,18 +8,16 @@
   <!-- 位置 -->
   <ons-list>
     <ons-list-item style="width: 100%;">
-      <p>
-        <ons-button class="btn" (click)="goToHome()">
-          <i class="material-icons">home</i>
-        </ons-button>
-        {{ photoAddress }}
-      </p>
+      <ons-button class="btn" (click)="goToHome()">
+        <i class="material-icons">home</i>
+      </ons-button>
+      {{ photoAddress }}
     </ons-list-item>
   </ons-list>
 
   <!-- 写真 -->
   <div id="previewArea">
-    <img #photoPreview id="photoPreview" style="width: 300px; height: auto; text-align: center">
+    <img #photoPreview id="photoPreview" style="width: 100%; height: auto; text-align: center">
   </div>
 
   <!-- 写真の情報 -->

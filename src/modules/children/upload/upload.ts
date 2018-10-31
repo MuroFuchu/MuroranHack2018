@@ -47,12 +47,12 @@ import * as ons from 'onsenui';
 })
 export class Upload {
 
-  photoLocationID: string = '';
-  photoAddress: string = '';
-  photoYear: number = 0;
-  photoComment: string = '';
+  photoLocationID: number = 0;
   photoID: number = 0;
+  photoYear: number = 0;
 
+  photoAddress: string = '';
+  photoComment: string = '';
   inputAccept: string = '';
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
@@ -132,8 +132,8 @@ export class Upload {
       var photoInfo: TimeTripPhotoInfo = null;
 
       photoInfo = new TimeTripPhotoInfo()
-      photoInfo.Year = this.photoYear;
-      photoInfo.LocationID = this.photoLocationID;
+      photoInfo.Year = Number(this.photoYear);
+      photoInfo.LocationID = Number(this.photoLocationID);
       photoInfo.Comment = this.photoComment;
       photoInfo.Bin = imgElem.src;
 
@@ -173,11 +173,17 @@ export class Upload {
       return false;
     }
 
-    if (this.photoYear == null)
+    if (!this.photoYear)
     {
       ons.notification.alert({title: 'エラー', message: '年を入力してください。'})
       return false;
     };
+
+    if (isNaN(this.photoYear) == true)
+    {
+      ons.notification.alert({title: 'エラー', message: '年は数値で入力してください。'})
+      return false;
+    }
 
     return true;
   }
@@ -189,7 +195,7 @@ export class Upload {
 class TimeTripPhotoInfo {
   PhotoID: number;
   Year: number;
-  LocationID: string;
+  LocationID: number;
   Title: string;
   Comment: string;
   Bin: string;

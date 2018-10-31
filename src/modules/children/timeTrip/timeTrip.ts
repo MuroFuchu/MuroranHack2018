@@ -146,12 +146,9 @@ export class TimeTrip {
       // カルーセルの初期設定
       // comp.initCrousel(comp, photoId);
       var index = comp.photoInfoList.findIndex(s => s.PhotoID == photoId);
-      console.log(index);
       var activeIndex = index == -1 ? 0 : index;
-      comp.carousel.nativeElement.refresh();
       comp.carousel.nativeElement.setActiveIndex(activeIndex);
     });
-
     // 読み込めなかった写真リスト初期化
     var array = new Array(this.photoInfoList.length);
     this.isImgErrList = this.isImgErrList.fill(false, 0, array.length);
@@ -191,7 +188,7 @@ export class TimeTrip {
   }
 
   isNext(): boolean{
-    return this.activeIndex != this.photoInfoList.length - 1;
+    return this.photoInfoList.length != 0 && this.activeIndex != this.photoInfoList.length - 1;
   }
 
   prev(){
@@ -220,7 +217,7 @@ export class TimeTrip {
   }
 
   // カルーセルの初期設定
-  private initCrousel(comp: TimeTrip,photoID: number){
+  private initCrousel(comp: TimeTrip, photoID: number){
     // カルーセルの初期位置設定
     var index = comp.photoInfoList.findIndex(s => s.PhotoID == photoID);
     console.log(index);

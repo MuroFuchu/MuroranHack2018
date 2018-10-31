@@ -20,7 +20,7 @@
     <!-- 写真エリア -->
     <ons-list-item style="width: 100%;">
       <div (click)="prev()" style="z-index: 100;" style="width: 35px;">
-        <i [style.display]="isPrev() ? 'block' : 'none'" class="material-icons">arrow_back</i>
+        <i [style.display]="!isPrev() ? 'none' : 'block'" class="material-icons">arrow_back</i>
       </div>
       <ons-carousel #carousel 
       　swipeable auto-scroll centered
@@ -32,7 +32,7 @@
         </ons-carousel-item>
       </ons-carousel>
       <div (click)="next()" style="z-index: 100;" style="width: 35px;">
-        <i [style.display]="isNext() ? 'block' : 'none'" class="material-icons">arrow_forward</i>
+        <i [style.display]="!isNext() ? 'none' : 'block'" class="material-icons">arrow_forward</i>
       </div>
     </ons-list-item>
 

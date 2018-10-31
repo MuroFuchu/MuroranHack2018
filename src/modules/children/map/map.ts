@@ -5,6 +5,7 @@ import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
 import {Component, NgZone, Injectable, OnInit, EventEmitter} from '@angular/core';
 import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
+import {GoogleMapsAPIWrapperEx} from '../../../services/GoogleMapsAPIWrapperEx';//ｸﾞｰｸﾞﾙ
 
 @Component({
   selector: "ons-page[title='map']",
@@ -63,10 +64,11 @@ export class Map implements OnInit {
   iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
   iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
 
-  constructor(private _navigator: OnsNavigator , private _indexedDbService: IndexedDbService) { }
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _googleMapsAPIWrapperEx: GoogleMapsAPIWrapperEx) {}
 
   async ngOnInit() {
     this.getGeo();
+    // this._googleMapsAPIWrapperEx.getAddress(42.319744, 140.986007); // 追加
   }
 
   // 現在地を取得する
@@ -118,6 +120,7 @@ export class Map implements OnInit {
   //選択したマーカーの情報を取得する
   clickMarker(m: marker){
     this.locationID = m.LocationID;
+    this.address = m.Address;
     this.resetPinMarker();//ピンマーカーをすべて初期化する
     m.iconUrl = this.markerPinSelected;
     this.selectedMarkerPin = m.iconUrl;// 新しいアイコン情報を取得する

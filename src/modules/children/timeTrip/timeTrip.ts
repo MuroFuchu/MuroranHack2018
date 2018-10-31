@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Menu } from '../menu/menu';
@@ -113,14 +113,16 @@ export class TimeTrip {
   photoInfoAllList: TimeTripPhotoInfo[] = [];
   photoInfoList: TimeTripPhotoInfo[] = [];
   location: LocationInfo = new LocationInfo();
-  
-  onShow = this.ngOnInit();
-
   baseDistance: number = 0;
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
 
-  async ngOnInit() {
+  @HostListener('show')
+  timeTripShow(e) {
+    this.init();
+  }
+
+  async init() {
     // 引数を取得
     var locationId = this._params.data.LocationID;
     var photoId = this._params.data.PhotoID;

@@ -11,6 +11,16 @@ import * as ons from 'onsenui';
   template: require('./upload.html'),
   styles: [`
 
+  #previewArea {
+    text-align: center;
+  }
+
+  #photoPreview {
+    width: auto;
+    max-height: 200px;
+    vertical-align: middle    
+  }
+
   .footer {
     margin-top: 10px;
     width: 100%;
@@ -147,9 +157,10 @@ export class Upload {
   private pageChange() {
     var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
     if(p.length > 0) {
+      // TimeTripページ経由であれば、１つ前の画面（TimeTripページ）に戻る
       this._navigator.nativeElement.popPage();
     } else {
-      // TimeTripページ経由であれば、TimeTripページに戻る
+      // TimeTripページを経由していなければ、新たにTimeTripページを開く
       this._navigator.nativeElement.replacePage(TimeTrip, {data: { LocationID: this.photoLocationID, PhotoID: this.photoID}});
     }
   }

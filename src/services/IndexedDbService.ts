@@ -51,6 +51,10 @@ export class IndexedDbService {
         return data;
     }
 
+    public async countLocationInfo() {
+        return await this.dexieService.count(this.MstLocationInfo);
+    }
+
     // 位置情報マスタ全件取得
     public async getMstLocationInfo(){
         return await this.dexieService.toArray(this.MstLocationInfo);
@@ -74,5 +78,10 @@ export class IndexedDbService {
 
     public deleteDatabase() {
         this.dexieService.deleteDataBase();
+    }
+
+    // 画像をマスタ登録する
+    public createMstImg(locationInfoObjects: Object){
+        this.dexieService.addOne(this.MstLocationInfo, locationInfoObjects);       
     }
 }

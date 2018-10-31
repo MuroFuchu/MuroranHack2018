@@ -11,13 +11,13 @@ import * as ons from 'onsenui';
   template: require('./upload.html'),
   styles: [`
 
-  #previewArea {
-    text-align: center;
-  }
-
   #photoPreview {
     width: auto;
     vertical-align: middle    
+  }
+  
+  .material-icons {
+    font-size:35px;
   }
 
   .footer {
@@ -34,13 +34,8 @@ import * as ons from 'onsenui';
     height: 35px;
     width: 35px;
     padding: 0px;
-    margin-left: 10px;
     margin-right: 10px;
     text-align: center;
-  }
-
-  .btn label {
-    font-size: 32px;
   }
 
   `]
@@ -72,6 +67,7 @@ export class Upload {
   }
 
   //#region 公開処理
+
 
   // ファイル選択ボタン
   public changePhoto(event)
@@ -159,7 +155,7 @@ export class Upload {
     var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
     if(p.length > 0) {
       // TimeTripページ経由であれば、１つ前の画面（TimeTripページ）に戻る
-      this._navigator.nativeElement.popPage();
+      this._navigator.nativeElement.popPage({data: { LocationID: this.photoLocationID, PhotoID: this.photoID}});
     } else {
       // TimeTripページを経由していなければ、新たにTimeTripページを開く
       this._navigator.nativeElement.replacePage(TimeTrip, {data: { LocationID: this.photoLocationID, PhotoID: this.photoID}});

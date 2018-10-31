@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, HostListener } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Menu } from '../menu/menu';
@@ -114,9 +114,13 @@ export class TimeTrip {
   photoInfoList: TimeTripPhotoInfo[] = [];
   location: LocationInfo = new LocationInfo();
   
-  onShow = this.init();
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
+
+  @HostListener('show')
+  timeTripShow(e){
+  this.init();
+  }
 
   async init() {
     // 引数を取得

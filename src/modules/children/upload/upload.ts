@@ -17,7 +17,6 @@ import * as ons from 'onsenui';
 
   #photoPreview {
     width: auto;
-    max-height: 200px;
     vertical-align: middle    
   }
 
@@ -25,6 +24,7 @@ import * as ons from 'onsenui';
     margin-top: 10px;
     width: 100%;
     display:inline-block;
+    text-align: center;
   }
 
   .btn {
@@ -39,7 +39,7 @@ import * as ons from 'onsenui';
     text-align: center;
   }
 
-  .btn i {
+  .btn label {
     font-size: 32px;
   }
 
@@ -109,7 +109,6 @@ export class Upload {
       callback: i => {
         if (i == 1) {
           this.uploadPhoto();
-          this.pageChange();
         }
       }
     });
@@ -140,11 +139,16 @@ export class Upload {
       var result = await this._indexedDbService.addOnePhotoInfo(photoInfo);
       this.photoID = Number(result);
 
+      console.log(this.photoID)
+
       ons.notification.alert({
         title: 'ありがとう！',
         message: '素敵な写真ですね！',
+        callback: i => {
+          this.pageChange();
+        }
       });
-  
+
     } catch (error) {
       console.log(error);
       return;
@@ -152,7 +156,7 @@ export class Upload {
   }
 
   // アップロード後の画面遷移
-  private pageChange() {
+  private async pageChange() {
     var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
     if(p.length > 0) {
       // TimeTripページ経由であれば、１つ前の画面（TimeTripページ）に戻る
@@ -169,19 +173,19 @@ export class Upload {
     var imgElem: HTMLImageElement = document.getElementById('photoPreview') as HTMLImageElement;
     if (imgElem.src == "")
     {
-      ons.notification.alert({title: 'エラー', message: 'アップロードする写真を選択してください。'})
+      ons.notification.alert({title: 'お願い', message: 'アップロードする写真を選んでね！'})
       return false;
     }
 
     if (!this.photoYear)
     {
-      ons.notification.alert({title: 'エラー', message: '年を入力してください。'})
+      ons.notification.alert({title: 'お願い', message: 'いつの写真か入力してね！'})
       return false;
     };
 
     if (isNaN(this.photoYear) == true)
     {
-      ons.notification.alert({title: 'エラー', message: '年は数値で入力してください。'})
+      ons.notification.alert({title: 'お願い', message: 'いつの写真かは数値で入力してね！'})
       return false;
     }
 

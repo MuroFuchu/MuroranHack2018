@@ -21,13 +21,33 @@
   ">
     <agm-info-window (infoWindowClose)="infoClosedEvent($event)">
       <table>
-        <tr>
+        <!-- <tr>
           <td>x座標：</td>
           <td>{{lastClicklat}}</td>
         </tr>
         <tr>
           <td>y座標：</td>
           <td>{{lastClicklng}}</td>
+        </tr> -->
+        <tr>
+          <td>この地点を登録する</td>
+          <td></td>
+        </tr>
+        <tr>
+            <td>タイトル</td>
+            <td><ons-input id="mapTitle" [(value)]="txtTitle"></ons-input></td>     
+        </tr>
+        <tr>
+            <td>住所</td>
+            <td>
+              <select [(ngModel)]="selectedAddresses">
+                <option *ngFor="let aa of addressList">{{aa?.formatted_address}}</option>
+              </select>
+            </td>          
+        </tr>
+        <tr>
+          <td>ボタン</td>
+          <td><ons-button (click)="registMapMst(lastClicklat, lastClicklng, txtTitle)"></ons-button></td>
         </tr>
       </table>
     </agm-info-window>

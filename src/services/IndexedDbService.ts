@@ -79,4 +79,9 @@ export class IndexedDbService {
     public deleteDatabase() {
         this.dexieService.deleteDataBase();
     }
+
+    // 画像をマスタ登録する
+    public createMstImg(locationInfoObjects: Object){
+        this.dexieService.addOne(this.MstLocationInfo, locationInfoObjects);       
+    }
 }

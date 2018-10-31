@@ -26,15 +26,18 @@ import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭ�
   }
 
   .content ons-button{
-    width:120px;
+    width:220px;
     height:90px;
     line-height: 20px;
-    margin:10px;
+    margin:13px;
     padding-top:10px;
+    font-size:25px;
+    padding-top:30px;
   }
 
   .material-icons{
-    font-size:40px;
+    font-size:45px;
+    line-height:0.8px;
   }
 
   .menu_btn_Time_Trip{

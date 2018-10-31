@@ -17,7 +17,6 @@ import * as ons from 'onsenui';
 
   #photoPreview {
     width: auto;
-    max-height: 200px;
     vertical-align: middle    
   }
 
@@ -109,7 +108,6 @@ export class Upload {
       callback: i => {
         if (i == 1) {
           this.uploadPhoto();
-          this.pageChange();
         }
       }
     });
@@ -140,11 +138,16 @@ export class Upload {
       var result = await this._indexedDbService.addOnePhotoInfo(photoInfo);
       this.photoID = Number(result);
 
+      console.log(this.photoID)
+
       ons.notification.alert({
         title: 'ありがとう！',
         message: '素敵な写真ですね！',
+        callback: i => {
+          this.pageChange();
+        }
       });
-  
+
     } catch (error) {
       console.log(error);
       return;
@@ -152,7 +155,7 @@ export class Upload {
   }
 
   // アップロード後の画面遷移
-  private pageChange() {
+  private async pageChange() {
     var p = this._navigator.nativeElement.pages.filter((page) => { return page.title == 'timetrip'; });
     if(p.length > 0) {
       // TimeTripページ経由であれば、１つ前の画面（TimeTripページ）に戻る

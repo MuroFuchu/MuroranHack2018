@@ -140,9 +140,14 @@ export class TimeTrip {
   photoInfoList: TimeTripPhotoInfo[] = [];
   photoInfo: TimeTripPhotoInfo = new TimeTripPhotoInfo();
 
-  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
+  constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {
+    console.log(_navigator.nativeElement.topPage);
+    console.log(_navigator.nativeElement.topPage.show);
+    _navigator.nativeElement.topPage.show = this.ngOnInit;
+  }
  
   async ngOnInit() {
+    alert('初期化');
     // 引数を取得
     this.locationId = this._params.data.LocationID;
     this.address = this._params.data.Address;

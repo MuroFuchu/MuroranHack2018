@@ -20,7 +20,7 @@
     <!-- 写真エリア -->
     <ons-list-item style="width: 100%;">
       <ons-carousel #carousel 
-      　swipeable auto-scroll
+      　swipeable auto-scroll centered
         id="carousel"
         (postchange)="toPostChange($event)">
         <ons-carousel-item *ngFor="let item of photoInfoList;let i = index" (click)="openModal(i)">

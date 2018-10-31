@@ -24,7 +24,7 @@
         id="carousel"
         (postchange)="toPostChange($event)">
         <ons-carousel-item *ngFor="let item of photoInfoList;let i = index" (click)="openModal(i)">
-          <img class="carousel_photo" [src]="item.Bin" alt="" (error)="isImgErrList[i] = true">
+          <img class="carousel_photo" [src]="item.Bin" alt="" (error)="isImgErrList[i] = true" style="height: 100%;">
           <div *ngIf="isImgErrList[i]" class="carousel_erricon"><i class="material-icons">cancel</i></div>
         </ons-carousel-item>
       </ons-carousel>

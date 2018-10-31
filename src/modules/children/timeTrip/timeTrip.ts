@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Menu } from '../menu/menu';
@@ -103,8 +103,8 @@ import { Upload } from '../upload/upload';
   }`]
 })
 export class TimeTrip {
-  @ViewChild('carousel') carousel;
-  @ViewChild('modal') modal;
+  @ViewChild('carousel') carousel: ElementRef;
+  @ViewChild('modal') modal: ElementRef;
  
   photoInfo: TimeTripPhotoInfo = new TimeTripPhotoInfo();
 
@@ -114,11 +114,13 @@ export class TimeTrip {
   photoInfoList: TimeTripPhotoInfo[] = [];
   location: LocationInfo = new LocationInfo();
   
-  onShow = this.init();
+  onShow = this.ngOnInit();
+
+  baseDistance: number = 0;
 
   constructor(private _navigator: OnsNavigator, private _indexedDbService: IndexedDbService, private _params: Params) {}
 
-  async init() {
+  async ngOnInit() {
     // 引数を取得
     var locationId = this._params.data.LocationID;
     var photoId = this._params.data.PhotoID;
@@ -139,7 +141,22 @@ export class TimeTrip {
     // カルーセルの初期設定
     this.initCrousel();
 
-    // console.log(this._params);
+    // var comp = this;
+    // this.modal.nativeElement.on("pinchin", (event) => {
+    //   console.log("pinchin");
+    //   console.log(event);
+
+    //   comp.modal.nativeElement.style.zoom = comp.getDistance(event);
+    // });
+
+    // this.modal.nativeElement.on("pinchout", (event) => {
+    //   console.log("pinchout");
+    //   console.log(event);
+
+    //   comp.modal.nativeElement.style.zoom = comp.getDistance(event);
+    // });
+
+    console.log(this._params);
     // console.log(this.locationInfoList);
     // console.log(this.location);
     // console.log(this.photoInfoAllList);
@@ -167,7 +184,7 @@ export class TimeTrip {
     if (!this.isImgErrList[index]) {
       this.modal.nativeElement.show();
     }
-  }  
+  }
 
   // カルーセルの初期設定
   private initCrousel(){
@@ -175,6 +192,7 @@ export class TimeTrip {
     var index = this.photoInfoList.findIndex(s => s.PhotoID == this.photoInfo.PhotoID);
     var activeIndex = index == -1 ? 0 : index;
     this.carousel.nativeElement.setAttribute("initial-index", activeIndex.toString());
+    this.carousel.nativeElement.refresh();
   }
 
   // 写真情報設定
@@ -185,7 +203,7 @@ export class TimeTrip {
     // timeTrip情報を設定
     if(this.photoInfoAllList){
       this.photoInfoList = this.photoInfoAllList
-        .sort((a, b) => {             // 年の昇順
+        .sort((a, b) => {    // 年の昇順
           if( a.Year < b.Year ) return -1;
           if( a.Year > b.Year ) return 1;
           return 0;
@@ -198,6 +216,29 @@ export class TimeTrip {
       var tempPhotoInfo = this.photoInfoList.find(f => f.PhotoID == photoID);
       this.photoInfo = tempPhotoInfo ? tempPhotoInfo : this.photoInfoList[0];
     }
+  }
+
+  // 距離を測る関数
+  private getDistance (event) {
+	  event.preventDefault();
+
+  	var touches = event.changedTouches;
+
+  	// 2本以上の指の場合だけ処理
+  	if ( touches.length > 1 ) {
+  		// 座標1 (1本目の指)
+  		var x1 = touches[0].pageX;
+  		var y1 = touches[0].pageY;
+
+  		// 座標2 (2本目の指)
+  		var x2 = touches[1].pageX;
+  		var y2 = touches[1].pageY;
+
+  		// 2点間の距離
+  		return Math.sqrt( Math.pow( x2-x1, 2 ) + Math.pow( y2-y1, 2 ) ) ;
+  	}
+
+  	return 1;
   }
 }
  

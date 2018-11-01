@@ -2,7 +2,7 @@
   <div class="left"><ons-back-button>Back</ons-back-button></div>
   <div class="center">地図から探す</div>
 </ons-toolbar>
-<agm-map [latitude]="centerLat" [longitude]="centerLng" [zoom]=15 [disableDoubleClickZoom]="true" (mapDblClick)="clickMap($event)">
+<agm-map [latitude]="centerLat" [longitude]="centerLng" [zoom]=15 [disableDoubleClickZoom]="true" (mapDblClick)="dblClickMap($event)">
   <agm-marker
     [latitude]="lastClicklat" 
     [longitude]="lastClicklng"
@@ -14,7 +14,7 @@
       }
     }"
     [label]="{
-      text: 'タップしたマーカー',
+      text: '選択した地点',
       fontSize: '10px',
       fontWeight: '700'
     }
@@ -34,20 +34,20 @@
           <td></td>
         </tr>
         <tr>
-            <td>タイトル</td>
+            <td>地点名</td>
             <td><ons-input id="mapTitle" [(value)]="txtTitle"></ons-input></td>     
         </tr>
         <tr>
             <td>住所</td>
             <td>
-              <select [(ngModel)]="selectedAddresses">
-                <option *ngFor="let aa of addressList">{{aa?.formatted_address}}</option>
-              </select>
+              <ons-select [(ngModel)]="selectedAddresses" style="width:200px;">
+                <option *ngFor="let address of addressList">{{address?.formatted_address}}</option>
+              </ons-select>
             </td>          
         </tr>
         <tr>
           <td>ボタン</td>
-          <td><ons-button (click)="registMapMst(lastClicklat, lastClicklng, txtTitle)"></ons-button></td>
+          <td><ons-button (click)="registMapMst(lastClicklat, lastClicklng)" modifier="large" class="btn_regist_point">地点を登録</ons-button></td>
         </tr>
       </table>
     </agm-info-window>
@@ -79,15 +79,15 @@
         <tr>
             <td>住所：</td>
             <td>{{m.Address}}</td>
-          </tr>
-        <tr>
+        </tr>
+        <!-- <tr>
           <td>x座標：</td>
           <td>{{m.Latitude}}</td>
         </tr>
         <tr>
           <td>y座標：</td>
           <td>{{m.Longitude}}</td>
-        </tr>
+        </tr> -->
       </table>
     </agm-info-window>
   </agm-marker>

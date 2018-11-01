@@ -3,7 +3,7 @@ import {Upload} from '../upload/upload';
 import {TimeTrip} from '../timeTrip/timeTrip';
 import {OnsNavigator,OnsenModule} from 'ngx-onsenui' ;
 import {Component, NgZone, Injectable, OnInit, EventEmitter} from '@angular/core';
-import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent } from '@agm/core';
+import {MapsAPILoader,GoogleMapsAPIWrapper, MouseEvent, AgmMap, AgmMarker, AgmInfoWindow } from '@agm/core';
 import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭｸｼ
 import {GoogleMapsAPIWrapperEx} from '../../../services/GoogleMapsAPIWrapperEx';//ｸﾞｰｸﾞﾙ
 
@@ -40,11 +40,14 @@ import {GoogleMapsAPIWrapperEx} from '../../../services/GoogleMapsAPIWrapperEx';
   .btn_icon_style_right {
     text-align: right;
   }
+  .btn_regist_point {
+    background-color:red;
+  }
   `]
 })
 
 export class Map implements OnInit {
-  locationID: string;
+  locationID: number;
   address: string;
   presentLat: number;
   presentLng: number;
@@ -57,6 +60,7 @@ export class Map implements OnInit {
   apiLoader: MapsAPILoader;
   apiWrapper:GoogleMapsAPIWrapper;
   map;
+  lastOpenWindow;
   txtTitle: string = '';
   selectedAddresses: string = '';// 住所を選択した値が入る
   selectedMarkerPin: string;
@@ -70,14 +74,6 @@ export class Map implements OnInit {
 
   async ngOnInit() {
     this.getGeo();
-    //var address;
-    this.addressList = await this._googleMapsAPIWrapperEx.getAddress(42.319744,140.986007); // 住所を探しに行く 
-    //if(address == null)
-    //{
-    //  console.log('nullだった');
-    //}else{
-    //  //console.log(Object.keys(address));
-    //}
   }
 
   // 現在地を取得する
@@ -96,7 +92,7 @@ export class Map implements OnInit {
         comp.displayPin();
       },
       function(){
-        ons.notification.alert({ message: '現在地を取得できるように設定してください。', title:'現在地が取得できません', callback:function(){
+        ons.notification.alert({ message: '地点情報を取得できるように設定してからご使用くださいね！', title:'現在地が取得できませんでした', callback:function(){
           comp.presentLat =  42.319744;// 室蘭NISCO仕様
           comp.presentLng = 140.986007;// 室蘭NISCO仕様
           comp.changeCenter(comp.presentLat,comp.presentLng);
@@ -121,13 +117,17 @@ export class Map implements OnInit {
     });
    
   }
-  // クリックした地図上の座標を取得する
-  clickMap($event: MouseEvent){
+  // セットした地点のマーカー情報を取得する
+  async dblClickMap($event: MouseEvent){
+    this.lastOpenWindow = this;
+    this.resetInput();
     this.lastClicklat = $event.coords.lat;
     this.lastClicklng = $event.coords.lng;
+    this.addressList = await this._googleMapsAPIWrapperEx.getAddress(this.lastClicklat, this.lastClicklng);//座標から住所を取得する
+    this.address = this.addressList[0].formatted_address;
     console.log('最後にクリックしたx座標' + this.lastClicklat.toString());
     console.log('最後にクリックしたy座標' + this.lastClicklng.toString());
-    console.log('選択した住所→'+this.selectedAddresses.toString());
+    console.log('選択した住所→' + this.selectedAddresses.toString());
   }
   //選択したマーカーの情報を取得する
   clickMarker(m: marker){
@@ -143,16 +143,8 @@ export class Map implements OnInit {
     this.centerLat = lat;
     this.centerLng = lng;
   }
-  //ピンのマーカーを初期化する
-  resetPinMarker(){
-    var pin = this;
-    pin.markers.filter(function(value){
-      if(value.iconUrl === pin.markerPinSelected){
-        value.iconUrl = pin.markerPinNormal;
-      }
-    });    
-  }
-  // DBからデータを取得する
+  /* DBアクセス系 */
+  // データ取得
   async getMapData(lat:number, lng:number){
     var data = await this._indexedDbService.getMstLocationByRange(lat,lng);
     //var data = await this._indexedDbService.getMstLocationInfo();
@@ -173,7 +165,25 @@ export class Map implements OnInit {
       });
     }
   }
+  // 地点登録
+  async registMapMst(lat:number, lng:number){
+    var address;
+    address = this._googleMapsAPIWrapperEx.getAddress(lat, lng);
+    if(this.txtTitle == ''){
+      this.alertNonInputTxt();
+    }else{
+      this._indexedDbService.createMstImg(this.createObj(lat, lng, this.txtTitle, this.address));    
+      this.changeCenter(lat,lng);
+      await this.getMapData(lat,lng);
+      this.displayPin();
+    }
+  }
+  // 地点登録DBオブジェクト生成
+  createObj(lat:number, lng:number, tit:string, address:string){
+    return { Title: tit, Address:address, Latitude:lat, Longitude:lng };
+  }
 
+  /* 画面遷移系 */
   // TimeTrip画面へ遷移
   goToTimeTrip() {
     if(this.locationID == undefined)
@@ -192,23 +202,35 @@ export class Map implements OnInit {
       this._navigator.nativeElement.pushPage(Upload, { data: { LocationID: this.locationID, Address: this.address } });
     }
   }
-  // アラート類
+  /* アラート系 */
+  // ピン未選択
   alertNonSelectPin() {
-    ons.notification.alert({ message: 'ピンを一つ選んでください。', title:'ピンを選択してください。' });
+    ons.notification.alert({ message: '閲覧したいピンを選択すると、その地点の情報を確認できます', title:'ピンを選びましょう！' });
   }
-  // 画像をアップロードする
-  registMapMst(lat:number, lng:number, tit:string){
-    var address;
-    address = this._googleMapsAPIWrapperEx.getAddress(lat, lng); // 住所を探しに行く    
-    this._indexedDbService.createMstImg(this.createObj(lat, lng, tit, this.selectedAddresses));    
+  // ピン未選択
+  alertNonInputTxt() {
+    ons.notification.alert({ message: 'この地点の名前を入力すると、この地点', title:'地点の名前を入力しましょう！' });
   }
-  createObj(lat:number, lng:number, tit:string, address:string){
-    return { Title: tit, Address:address, Latitude:lat, Longitude:lng };
+  /* 初期化系メソッド */
+  // 入力項目リセット
+  resetInput(){
+    this.txtTitle = '';
+    this.selectedAddresses = '';
+    this.addressList = [];
+  }
+  // ピンマーカーアイコンリセット
+  resetPinMarker(){
+    var pin = this;
+    pin.markers.filter(function(value){
+      if(value.iconUrl === pin.markerPinSelected){
+        value.iconUrl = pin.markerPinNormal;
+      }
+    });    
   }
 }
 // マーカー用インタフェース
 interface marker{
-  LocationID:string;
+  LocationID:number;
   Title:string;
   Address:string;
   Latitude:number;

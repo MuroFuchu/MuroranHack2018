@@ -146,8 +146,8 @@ export class Map implements OnInit {
   /* DBアクセス系 */
   // データ取得
   async getMapData(lat:number, lng:number){
-    var data = await this._indexedDbService.getMstLocationByRange(lat,lng);
-    //var data = await this._indexedDbService.getMstLocationInfo();
+    //var data = await this._indexedDbService.getMstLocationByRange(lat,lng);
+    var data = await this._indexedDbService.getMstLocationInfo();
     if(data==null){
       console.log('データが取得できなかった');
       this.markers = [];

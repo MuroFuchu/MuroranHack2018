@@ -13,5 +13,8 @@
     {"LocationID" :12,"Title" :"知利別社宅","Address" :"北海道 室蘭市 知利別町４丁目","Latitude":42.365746,"Longitude":141.024736},
     {"LocationID" :13,"Title" :"府中駅","Address" :"東京都 府中市 宮町１丁目","Latitude":35.672287,"Longitude":139.480114},
     {"LocationID" :14,"Title" :"宮古港フェリーターミナル","Address" :"岩手県 宮古市 磯鶏第４地割","Latitude":39.6264713,"Longitude":141.9682083},
-    {"LocationID" :15,"Title" :"太平洋","Address" :"太平洋","Latitude":42.1735804,"Longitude":141.549039}
+    {"LocationID" :15,"Title" :"太平洋","Address" :"太平洋","Latitude":42.1735804,"Longitude":141.549039},
+    {"LocationID" :16,"Title" :"たろう観光ホテル","Address" :"岩手県宮古市田老野原８０−１","Latitude":39.738335,"Longitude":141.976239},
+    {"LocationID" :17,"Title" :"浄土ヶ浜","Address" :"岩手県宮古市日立浜町３２番地","Latitude":39.652508,"Longitude":141.978668},
+    {"LocationID" :18,"Title" :"宮古市　旭湯","Address" :"岩手県宮古市西町１丁目５−１６","Latitude":39.64562,"Longitude":141.943322}
 ]

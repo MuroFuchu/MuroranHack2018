@@ -22,7 +22,7 @@ import {IndexedDbService} from '../../../services/IndexedDbService';//ﾃﾞｭ�
     font-family:Impact;
     font-size:50px;
     color:brown;
-    margin:40px 0 100px 0;
+    margin:40px 0 10px 0;
   }
 
   .content ons-button{

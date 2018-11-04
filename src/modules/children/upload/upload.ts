@@ -140,6 +140,7 @@ export class Upload {
         title: 'ありがとう！',
         message: '素敵な写真ですね！',
         callback: i => {
+          ons.notification.toast('写真が更新されたよ！', { timeout: 1500, animation: 'fall' });
           this.pageChange();
         }
       });

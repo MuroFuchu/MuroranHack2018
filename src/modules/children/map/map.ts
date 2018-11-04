@@ -67,6 +67,7 @@ export class Map implements OnInit {
   markerPinNormal: string = require('../../../../contents/icons/pin_normal.svg');//マーカーピンのアイコンURL
   markerPinSelected: string = require('../../../../contents/icons/pin_free.svg');//マーカーピンのアイコンURL
   nowPlacePin: string = require('../../../../contents/icons/pin_nowPlace.svg');//マーカーピンのアイコンURL
+  iconPathInfo: string = require('../../../../contents/buttons/showInfo.png');
   iconPathTrip: string = require('../../../../contents/buttons/goToTrip.png');
   iconPathRegist: string = require('../../../../contents/buttons/goToRegist.png');
   addressList:any[];
@@ -181,6 +182,11 @@ export class Map implements OnInit {
   // 地点登録DBオブジェクト生成
   createObj(lat:number, lng:number, tit:string, address:string){
     return { Title: tit, Address:address, Latitude:lat, Longitude:lng };
+  }
+
+  /* 情報表示 */
+　showInfo() {
+    ons.notification.alert({ message: 'LocalWiki等のLOD取得し、この場所の情報やうんちくを表示させたい。', title:'未完成( ;∀;)'  });
   }
 
   /* 画面遷移系 */
